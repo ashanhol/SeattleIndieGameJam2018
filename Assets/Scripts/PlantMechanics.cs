@@ -1,5 +1,11 @@
 using UnityEngine;
 
+enum PlayerAction {
+  Seed = 20,
+  Water = 10,
+  Fertilize = 5,
+}
+
 //Should only have one of these classes initalized at once
 public class PlantingMechanics {
   private static int numTotalPlots_ = 4;
