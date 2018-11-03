@@ -5,6 +5,7 @@ public class GameState {
 
   private static int totalScore = 4;
   private static int timeForLevel = 3;
+  private static int currentLevelLoop = 0;
 
   private static GameStatePlot[] plots;
   private static int currentPlotIndex = 0;
@@ -13,10 +14,16 @@ public class GameState {
 
   public static void GenerateLevel () {
     plots = new GameStatePlot[totalPlotCount];
-    currentPlotIndex = 0;
     totalPlotCountLastRound = totalPlotCount;
     totalPlotCount = totalPlotCount + 4;
   }
+
+  public static void AdvanceLoop () {
+    currentPlotIndex = 0;
+    ++currentLevelLoop;
+  }
+
+  public static void doAction () { }
 
   public static GameStatePlot[] Plots {
     get {
