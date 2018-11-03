@@ -24,9 +24,11 @@ public class PlantingMechanics {
   }
 
   //Need function for matching score with plant
-  public static void doPlayerAction (int PlayerActionValue) {
+  public static int doPlayerAction (int PlayerActionValue) {
     CurrentPlot.Actions.Add(PlayerActionValue);
-    CurrentPlot.Score += PlayerActionValue * GameState.LapsRunThroughLoop;
+    int actionScore = PlayerActionValue * GameState.LapsRunThroughLoop;
+    CurrentPlot.Score += actionScore;
+    return actionScore;
   }
 
   public static int TotalScore {
