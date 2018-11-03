@@ -9,9 +9,13 @@ public class GameState {
   private static GameStatePlot[] plots;
   private static int currentPlotIndex = 0;
   private static int totalPlotCount = 4;
+  private static int totalPlotCountLastRound = 0;
 
-  public static void GeneratePlots () {
+  public static void GenerateLevel () {
     plots = new GameStatePlot[totalPlotCount];
+    currentPlotIndex = 0;
+    totalPlotCountLastRound = totalPlotCount;
+    totalPlotCount = totalPlotCount + 4;
   }
 
   public static GameStatePlot[] Plots {

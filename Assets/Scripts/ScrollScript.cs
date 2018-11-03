@@ -13,7 +13,7 @@ public class ScrollScript : MonoBehaviour {
     void Start () {
         //No more than NumPlotsOnScreen at once, plus the one going on/off screen
         onScreenPlot_ = new Queue<GameObject> (NumPlotsOnscreen + 1);
-        GameState.GeneratePlots ();
+        GameState.GenerateLevel ();
         GameStatePlot[] plots = GameState.Plots;
     }
 
