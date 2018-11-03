@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
@@ -10,37 +9,32 @@ public class ScrollScript : MonoBehaviour {
 
     private Queue<GameObject> onScreenPlot_;
 
-	// Use this for initialization
-	void Start ()
-    {
+    // Use this for initialization
+    void Start () {
         //No more than NumPlotsOnScreen at once, plus the one going on/off screen
-        onScreenPlot_ = new Queue<GameObject>(NumPlotsOnscreen+1);
+        onScreenPlot_ = new Queue<GameObject> (NumPlotsOnscreen + 1);
+        GameState.GeneratePlots ();
+        GameStatePlot[] plots = GameState.Plots;
+    }
 
-        PlantObject p = PlantingMechanics.plots[0];
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+    // Update is called once per frame
+    void Update () {
+
+    }
 
     //Move all plots in onScreenPlot_
-    void MoveOncomingPlotLeft()
-    {
+    void MoveOncomingPlotLeft () {
 
     }
 
     //Function to spawn the next plot in the queue offscreen
-    void SpawnNextPlot()
-    {
+    void SpawnNextPlot () {
         //Add next plot to onScreenPlot_
-        
+
     }
 
     //Function to remove first element from queue since it's offscreen
-    void RemoveOffscreenPlot(GameObject toBeRemoved)
-    {
+    void RemoveOffscreenPlot (GameObject toBeRemoved) {
 
     }
 

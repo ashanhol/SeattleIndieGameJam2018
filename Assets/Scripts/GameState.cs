@@ -7,18 +7,24 @@ public class GameState {
   private static int timeForLevel = 3;
 
   private static GameStatePlot[] plots;
-  private static int plotCurrentIndex = 0;
-  private static int plotTotalCount = 4;
+  private static int currentPlotIndex = 0;
+  private static int totalPlotCount = 4;
 
   public static void GeneratePlots () {
-    plots = new GameStatePlot[plotTotalCount];
+    plots = new GameStatePlot[totalPlotCount];
+  }
+
+  public static GameStatePlot[] Plots {
+    get {
+      return plots;
+    }
   }
 
   public static int TotalScore {
     get {
       int _totalScore = 0;
-      for (int i = 0; i < plotTotalCount; i++) {
-        _totalScore += plots[plotCurrentIndex].Score;
+      for (int i = 0; i < totalPlotCount; i++) {
+        _totalScore += plots[currentPlotIndex].Score;
       }
       return _totalScore;
     }
@@ -33,15 +39,15 @@ public class GameState {
     }
   }
 
-  public static GameStatePlot PlotCurrent {
+  public static GameStatePlot CurrentPlot {
     get {
-      return plots[plotCurrentIndex];
+      return plots[currentPlotIndex];
     }
   }
 
-  public static int PlotCurrentIndex {
+  public static int CurrentPlotIndex {
     set {
-      plotCurrentIndex = value;
+      currentPlotIndex = value;
     }
   }
 
