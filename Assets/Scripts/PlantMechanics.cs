@@ -19,9 +19,10 @@ public class PlantingMechanics {
     return GameState.Plots;
   }
 
-  public static void AdvanceLoop () {
+  public static PlantObject[] AdvanceLoop () {
     GameState.CurrentPlotIndex = 0;
     ++GameState.LapsRunThroughLoop;
+    return GameState.Plots;
   }
 
   //Need function for matching score with plant
