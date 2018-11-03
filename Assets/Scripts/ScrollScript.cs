@@ -7,28 +7,56 @@ public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
     public int NumPlotsOnscreen;
+    public int ScrollSpeed;
 
     private Queue<GameObject> onScreenPlot_;
+    
 
-	// Use this for initialization
 	void Start ()
     {
-        //No more than NumPlotsOnScreen at once, plus the one going on/off screen
-        onScreenPlot_ = new Queue<GameObject>(NumPlotsOnscreen+1);
+        ScrollSpeed = 1; //for now, we should set in editor
 
-        PlantObject p = PlantingMechanics.plots[0];
+        //No more than NumPlotsOnScreen at once, plus the one going on/off screen
+        //Make sure you spawn plotPrefab, not empty gameobject
+        onScreenPlot_ = new Queue<GameObject>();
+
+        //last object queued to calculate where next should spawn
+        GameObject temp = null; 
+
+        //Populate queue with starting plots
+        for(int i = 0; i < NumPlotsOnscreen+1; i++)
+        {
+            //Spawn in default area if first object
+            if (i == 0)
+            {
+                onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab));
+            }
+            else
+            {
+                //Spawn where the last object ends if not first object
+                Vector3 nextPos = new Vector3((temp.transform.position.x + plotPrefab.GetComponentInChildren<Renderer>().bounds.extents.x * 2), temp.transform.position.y, temp.transform.position.z);
+             
+                onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity)); 
+            }
+        }
+        
+        //PlantObject p = PlantingMechanics.plots[0];
 	}
 	
-	// Update is called once per frame
-	void Update ()
+
+	void FixedUpdate ()
     {
-		
+        MoveOncomingPlotLeft();
 	}
 
     //Move all plots in onScreenPlot_
     void MoveOncomingPlotLeft()
     {
-
+        //Foreach gameobject in queue, move left
+        foreach(var plot in onScreenPlot_)
+        {
+            plot.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed); 
+        }
     }
 
     //Function to spawn the next plot in the queue offscreen
@@ -39,8 +67,10 @@ public class ScrollScript : MonoBehaviour {
     }
 
     //Function to remove first element from queue since it's offscreen
+    //Should be called when plot has hit offscreen boundry
     void RemoveOffscreenPlot(GameObject toBeRemoved)
     {
+        //Spawn next plot()
 
     }
 
