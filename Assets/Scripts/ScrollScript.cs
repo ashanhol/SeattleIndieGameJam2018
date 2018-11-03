@@ -14,7 +14,7 @@ public class ScrollScript : MonoBehaviour {
 
 	void Start ()
     {
-        ScrollSpeed = 1; //for now, we should set in editor
+        ScrollSpeed = 15; //for now, we should set in editor
 
         //No more than NumPlotsOnScreen at once, plus the one going on/off screen
         //Make sure you spawn plotPrefab, not empty gameobject
@@ -68,8 +68,9 @@ public class ScrollScript : MonoBehaviour {
 
     //Function to remove first element from queue since it's offscreen
     //Should be called when plot has hit offscreen boundry
-    void RemoveOffscreenPlot(GameObject toBeRemoved)
+    public void RemoveOffscreenPlot(GameObject toBeRemoved)
     {
+        Destroy(toBeRemoved);
         //Spawn next plot()
 
     }
