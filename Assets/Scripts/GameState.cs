@@ -16,5 +16,8 @@ public class GameState {
 
   //Maximum number of loops this game is gonna run through
   public static int MaxLoops { get; set; }
-   
+
+  //Has the player done a plot (at this index) for this loop?
+  public static List<bool> HasActionBeenDoneThisLoop { get; set; }
+
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +19,8 @@ public class PlantingMechanics {
   public static void GenerateLevel () {
     GameState.TotalPlotCountLastRound = GameState.TotalPlotCount;
     GameState.TotalPlotCount = GameState.TotalPlotCount + LoopPlotIncreaseCount;
-    GameState.PlantScore = new List<int>(new int[GameState.TotalPlotCount]);
+    GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat(false, GameState.TotalPlotCount).ToList();
+    GameState.PlantScore = Enumerable.Repeat(0, GameState.TotalPlotCount).ToList();
     GameState.PlantActions = new Dictionary<int, List<int>>();
     for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
       GameState.PlantActions.Add(i, new List<int>(new int[0]));
@@ -35,6 +37,7 @@ public class PlantingMechanics {
 
     int _plotsToAdvanceLoop = GameState.TotalPlotCount * (GameState.LapsRunThroughLoop + 1);
     if (GameState.PlotsRemoved >= _plotsToAdvanceLoop) {
+      GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat(false, GameState.TotalPlotCount).ToList();
       GameState.PlotsRemovedAtLastLap = GameState.PlotsRemoved;
       ++GameState.LapsRunThroughLoop;
       if(GameState.LapsRunThroughLoop> GameState.MaxLoops)
@@ -65,14 +68,21 @@ public class PlantingMechanics {
   }
 
   public static int doPlayerAction (int PlayerActionValue) {
-    int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
     int _currentPlotIndex = CurrentPlotIndex;
-    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
-    _currentPlotActions.Add(PlayerActionValue);
-    GameState.PlantActions[_currentPlotIndex] = _currentPlotActions;
-    GameState.PlantScore[_currentPlotIndex] += actionScore;
-    Debug.Log("player has chosen player action for " + actionScore);
-    return actionScore;
+    if (!GameState.HasActionBeenDoneThisLoop[_currentPlotIndex]) {
+      int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
+      List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
+      _currentPlotActions.Add(PlayerActionValue);
+      GameState.PlantActions[_currentPlotIndex] = _currentPlotActions;
+      GameState.PlantScore[_currentPlotIndex] += actionScore;
+      GameState.HasActionBeenDoneThisLoop[_currentPlotIndex] = true;
+      Debug.Log("player has chosen player action for " + actionScore);
+      return actionScore;
+    }
+    else {
+      Debug.Log("action already done for this plot");
+      return 0;
+    }
   }
 
   public static int TotalScore {
