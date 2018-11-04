@@ -30,8 +30,6 @@ public class ScrollScript : MonoBehaviour {
                 SpawnNextPlot();
             }
         }
-
-        //PlantObject p = PlantingMechanics.plots[0];
     }
 
     void FixedUpdate () {
