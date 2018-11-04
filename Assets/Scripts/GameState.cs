@@ -11,6 +11,7 @@ public class GameState {
   public static int TotalPlotCountLastRound { get; set; }
   public static int PlotsRemoved { get; set; }
   public static int LapsRunThroughLoop { get; set; }
+  public static int PlayerScore { get; set; } //This is score not related to plants, like from changing actions
 
   // a reference for the plot visual element
   public static Queue<GameObject> onScreenPlot_ { get; set; }
