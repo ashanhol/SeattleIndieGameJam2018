@@ -5,15 +5,15 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     PlayerAction pa = PlayerAction.Seed;
-
+    public GameObject gameController;
 
 
     // Use this for initialization
     void Start ()
     {
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -37,6 +37,8 @@ public class PlayerInput : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
         {
             PlantingMechanics.doPlayerAction((int)pa);
+            gameController = GameObject.FindGameObjectWithTag("GameController");
+            gameController.GetComponent<ScrollScript> ().CheckPlantGrowth ();
         }
     }
 

@@ -73,23 +73,19 @@ public class PlantingMechanics {
     return false;
   }
 
-  // should we spawn a baby plan on the "last plot"
-  // the "last plot" is the plot to the left of the plot the player is currently on
-  public static bool ShouldSpawnBabyPlantOnLastIndex () {
-    int _lastPlotIndex = LastPlotIndex;
-    List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
-    if (_lastPlotActions.Count == 1) {
+  public static bool ShouldSpawnBabyPlantOnCurrentIndex () {
+    int _currentPlotIndex = CurrentPlotIndex;
+    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
+    if (_currentPlotActions.Count == 1) {
       return true;
     }
     return false;
   }
 
-  // should we spawn an adult plant on the "last plot"
-  // the "last plot" is the plot to the left of the plot the player is currently on
-  public static bool ShouldSpawnAdultPlantOnLastIndex () {
-    int _lastPlotIndex = LastPlotIndex;
-    List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
-    if (_lastPlotActions.Count > 1) {
+  public static bool ShouldSpawnAdultPlantOnCurrentIndex () {
+    int _currentPlotIndex = CurrentPlotIndex;
+    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
+    if (_currentPlotActions.Count > 1) {
       return true;
     }
     return false;
