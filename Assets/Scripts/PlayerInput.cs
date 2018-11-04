@@ -77,8 +77,11 @@ public class PlayerInput : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-
-
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+        Application.Quit();
+    }
 
 
     PlayerAction CycleThroughActions(string cycleDirection, PlayerAction CurPa)
