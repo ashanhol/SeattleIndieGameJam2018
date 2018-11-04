@@ -55,29 +55,24 @@ public class ScrollScript : MonoBehaviour {
         //Add next plot to onScreenPlot_
         GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity));
 
-        if (PlantingMechanics.ShouldSpawnBabyPlantOnJustAddedIndex()) {
-            // TODO Adina spawn a plant
-            Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
-        }
-        if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex()) {
-            //Figure out what plant to spawn
-            //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
-        }
+        CheckPlantRerendering();
     }
 
     //Function to remove first element from queue since it's offscreen
     //Should be called when plot has hit offscreen boundry
     public void RemoveOffscreenPlot (GameObject toBeRemoved) {
         Destroy (toBeRemoved);
-        SpawnNextPlot();
-        PlantingMechanics.TileAdvance();
-        GameState.onScreenPlot_.Dequeue();
-        if (PlantingMechanics.ShouldSpawnBabyPlantOnLastIndex()) {
-            // TODO Adina spawn a plant
-            Instantiate(babyPlantPrefab, LastPlot.transform.GetChild(0));
+        SpawnNextPlot ();
+        PlantingMechanics.TileAdvance ();
+        GameState.onScreenPlot_.Dequeue ();
+    }
+
+    // check if a plant should be grown on the current plot
+    public void CheckPlantGrowth () {
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnCurrentIndex ()) {
+            Instantiate (babyPlantPrefab, CurrentPlot.transform.GetChild (0));
         }
-        if (PlantingMechanics.ShouldSpawnAdultPlantOnLastIndex()) {
-            //TODO: Figure out what plant to spawn
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnCurrentIndex ()) {
             int score = PlantingMechanics.LastPlotScore;
             if (score <= 0)
             {
@@ -87,16 +82,36 @@ public class ScrollScript : MonoBehaviour {
             {
 
             }
-            // TODO Adina spawn a plant
-            //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
+            //Figure out what plant to spawn
+            // Instantiate(PlantList[plantnum], CurrentPlot.transform.GetChild(0));
         }
     }
 
-    public static GameObject LastPlot {
+    // check if a plant should be re-rendered (because it was grown last loop) on a plot
+    void CheckPlantRerendering () {
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnJustAddedIndex ()) {
+            Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
+        }
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex ()) {
+            int score = PlantingMechanics.LastPlotScore;
+            if (score <= 0)
+            {
+
+            }
+            else
+            {
+
+            }
+            //Figure out what plant to spawn
+            // Instantiate(PlantList[plantnum], temp.transform.GetChild(0));
+        }
+    }
+
+    static GameObject CurrentPlot {
         get {
-            int _previousPlotIndex = (int)Math.Floor((double) GameState.onScreenPlot_.Count / 2) - 1;
-            GameObject previousPlot = GameState.onScreenPlot_.ElementAt(_previousPlotIndex);
-            return previousPlot;
+            int _currentPlotIndex = (int) Math.Floor ((double) GameState.onScreenPlot_.Count / 2);
+            GameObject _currentPlot = GameState.onScreenPlot_.ElementAt (_currentPlotIndex);
+            return _currentPlot;
         }
     }
 

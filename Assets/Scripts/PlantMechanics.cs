@@ -16,6 +16,9 @@ public class PlantingMechanics {
   //How many plots we're increasing per level
   public static int LoopPlotIncreaseCount = 5;
 
+  // How many actions do you have to do on a plant, before it grows to adulthood
+  public static int ActionsRequiredToGrowToAdulthood = 3;
+
   // setup all the initial state required to generate a new level
   // this mostly includes generating empty lists, and setting attributes to zero
   public static void GenerateLevel () {
@@ -24,7 +27,7 @@ public class PlantingMechanics {
     GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat (false, GameState.TotalPlotCount).ToList ();
     GameState.PlantScore = Enumerable.Repeat (0, GameState.TotalPlotCount).ToList ();
     GameState.PlantActions = new Dictionary<int, List<int>> ();
-    for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
+    for (int i = 0; i < GameState.TotalPlotCount; i++) {
       GameState.PlantActions.Add (i, new List<int> (new int[0]));
     }
     GameState.PlotsRemoved = 0;
@@ -67,29 +70,25 @@ public class PlantingMechanics {
   public static bool ShouldSpawnAdultPlantOnJustAddedIndex() {
     int _justAddedPlotIndex = JustAddedPlotIndex;
     List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
-    if (_justAddedPlotActions.Count > 1) {
+    if (_justAddedPlotActions.Count >= ActionsRequiredToGrowToAdulthood) {
       return true;
     }
     return false;
   }
 
-  // should we spawn a baby plan on the "last plot"
-  // the "last plot" is the plot to the left of the plot the player is currently on
-  public static bool ShouldSpawnBabyPlantOnLastIndex () {
-    int _lastPlotIndex = LastPlotIndex;
-    List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
-    if (_lastPlotActions.Count == 1) {
+  public static bool ShouldSpawnBabyPlantOnCurrentIndex () {
+    int _currentPlotIndex = CurrentPlotIndex;
+    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
+    if (_currentPlotActions.Count == 1) {
       return true;
     }
     return false;
   }
 
-  // should we spawn an adult plant on the "last plot"
-  // the "last plot" is the plot to the left of the plot the player is currently on
-  public static bool ShouldSpawnAdultPlantOnLastIndex () {
-    int _lastPlotIndex = LastPlotIndex;
-    List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
-    if (_lastPlotActions.Count > 1) {
+  public static bool ShouldSpawnAdultPlantOnCurrentIndex () {
+    int _currentPlotIndex = CurrentPlotIndex;
+    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
+    if (_currentPlotActions.Count >= ActionsRequiredToGrowToAdulthood) {
       return true;
     }
     return false;
@@ -99,20 +98,33 @@ public class PlantingMechanics {
   // the "current plot" is the plot the player is currently on
   public static int doPlayerAction (int PlayerActionValue) {
     int _currentPlotIndex = CurrentPlotIndex;
-    // if an action *has not* been done on the current index, for this loop
+    // if an action *has not* been done on the current index, during this loop
     if (!GameState.HasActionBeenDoneThisLoop[_currentPlotIndex]) {
-      int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
+      // update actions
       List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
       _currentPlotActions.Add (PlayerActionValue);
       GameState.PlantActions[_currentPlotIndex] = _currentPlotActions;
+      // update score
+      int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
       GameState.PlantScore[_currentPlotIndex] += actionScore;
       GameState.HasActionBeenDoneThisLoop[_currentPlotIndex] = true;
       Debug.Log ("player has chosen player action for " + actionScore);
       return actionScore;
-    // if an action *has* been done on the current index, for this loop
+    // if an action *has* been done on the current index, during this loop
     } else {
       Debug.Log ("action already done for this plot");
       return 0;
+    }
+  }
+
+  // the maximium score you can have for a plant, as of it growing into an adult
+  public static int MaximumPossibleScoreForGrownPlant {
+    get {
+      int _maxScore = 0;
+      for (int i = 0; i < GameState.MaxLoops; i++) {
+        _maxScore += (int)PlayerAction.Seed * (i + 1);
+      }
+      return _maxScore;
     }
   }
 
@@ -120,7 +132,7 @@ public class PlantingMechanics {
   public static int TotalScore {
     get {
       int _totalScore = 0;
-      foreach (var _score in GameState.PlantScore) {
+      foreach (int _score in GameState.PlantScore) {
         _totalScore += _score;
       }
       return _totalScore;
