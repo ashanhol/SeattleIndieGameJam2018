@@ -301,6 +301,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1698605750030430, guid: a323648896dc331459d3f889bc747a10,
         type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: ScrollSpeed
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b7618180769694ab3859623ca37759, type: 2}
   m_IsPrefabAsset: 0
@@ -383,8 +388,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1986032167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.16, z: -10}
-  m_LocalScale: {x: 100, y: 22.57, z: 130.53188}
+  m_LocalPosition: {x: -4.5, y: 8.16, z: -10}
+  m_LocalScale: {x: 78.2438, y: 59.276833, z: 142.27975}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
