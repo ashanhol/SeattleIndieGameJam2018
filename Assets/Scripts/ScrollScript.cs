@@ -9,19 +9,16 @@ public class ScrollScript : MonoBehaviour {
     public int NumPlotsOnscreen;
     public int ScrollSpeed;
 
-    private Queue<GameObject> onScreenPlot_;
-    
-
 	void Start ()
     {
         ScrollSpeed = 15; //for now, we should set in editor
 
         //No more than NumPlotsOnScreen at once, plus the one going on/off screen
         //Make sure you spawn plotPrefab, not empty gameobject
-        onScreenPlot_ = new Queue<GameObject>();
+        GameState.onScreenPlot_ = new Queue<GameObject>();
 
         //last object queued to calculate where next should spawn
-        GameObject temp = null; 
+        GameObject temp = null;
 
         //Populate queue with starting plots
         for(int i = 0; i < NumPlotsOnscreen+1; i++)
@@ -29,20 +26,20 @@ public class ScrollScript : MonoBehaviour {
             //Spawn in default area if first object
             if (i == 0)
             {
-                onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab));
+                GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab));
             }
             else
             {
                 //Spawn where the last object ends if not first object
                 Vector3 nextPos = new Vector3((temp.transform.position.x + plotPrefab.GetComponentInChildren<Renderer>().bounds.extents.x * 2), temp.transform.position.y, temp.transform.position.z);
-             
-                onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity)); 
+
+                GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity));
             }
         }
-        
+
         //PlantObject p = PlantingMechanics.plots[0];
 	}
-	
+
 
 	void FixedUpdate ()
     {
@@ -53,9 +50,9 @@ public class ScrollScript : MonoBehaviour {
     void MoveOncomingPlotLeft()
     {
         //Foreach gameobject in queue, move left
-        foreach(var plot in onScreenPlot_)
+        foreach(var plot in GameState.onScreenPlot_)
         {
-            plot.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed); 
+            plot.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed);
         }
     }
 
@@ -63,7 +60,7 @@ public class ScrollScript : MonoBehaviour {
     void SpawnNextPlot()
     {
         //Add next plot to onScreenPlot_
-        
+
     }
 
     //Function to remove first element from queue since it's offscreen
