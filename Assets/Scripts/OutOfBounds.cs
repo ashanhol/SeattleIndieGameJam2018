@@ -23,11 +23,7 @@ public class OutOfBounds : MonoBehaviour {
             Debug.Log("PlayerCollide");
             if(gameController.GetComponent<ScrollScript>().CurrentPlot == gameObject)
             {
-                Debug.Log("Script is on: " + gameObject);
-                Debug.Log("Current plot is : " + gameController.GetComponent<ScrollScript>().CurrentPlot);
-
                 Debug.Log(gameObject.GetComponentInChildren<Light>().enabled = true);
-               // Debug.Log(gameController.GetComponent<ScrollScript>().CurrentPlot.GetComponentInChildren<Light>().enabled = true);
             }
         }
     }
@@ -41,9 +37,7 @@ public class OutOfBounds : MonoBehaviour {
 
             if (gameController.GetComponent<ScrollScript>().CurrentPlot != gameObject)
             {
-
-                Debug.Log(gameController.GetComponent<ScrollScript>().CurrentPlot.GetComponentInChildren<Light>().enabled = false);
-
+                Debug.Log(gameObject.GetComponentInChildren<Light>().enabled = false);
             }
         }
 

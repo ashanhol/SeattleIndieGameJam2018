@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 33816999825428586}
   - component: {fileID: 23967003734801804}
   - component: {fileID: 114007106790551376}
-  - component: {fileID: 65820640568574550}
   m_Layer: 0
   m_Name: Rear Axel
   m_TagString: Player
@@ -119,6 +118,7 @@ GameObject:
   - component: {fileID: 4583091776353820}
   - component: {fileID: 33769127441851982}
   - component: {fileID: 23100310751648440}
+  - component: {fileID: 65984038699599676}
   m_Layer: 0
   m_Name: default
   m_TagString: Player
@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 33325874146091492}
   - component: {fileID: 23247005603462262}
   - component: {fileID: 114557438821811620}
-  - component: {fileID: 65152767730619170}
   m_Layer: 0
   m_Name: Front Axel
   m_TagString: Player
@@ -206,7 +205,7 @@ Transform:
   m_GameObject: {fileID: 1130901049143570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2.9999998, z: 22.29}
-  m_LocalScale: {x: 0.52123, y: 0.52123, z: 0.52123}
+  m_LocalScale: {x: -0.52123, y: 0.52123, z: 0.52123}
   m_Children:
   - {fileID: 4583091776353820}
   - {fileID: 4738558594311706}
@@ -466,30 +465,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1638590977277210}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65152767730619170
+--- !u!65 &65984038699599676
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1909409552702706}
+  m_GameObject: {fileID: 1839254685696856}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.944817, y: 10.584135, z: 16.70895}
-  m_Center: {x: -0.014393031, y: -0.16139351, z: 0.0660215}
---- !u!65 &65820640568574550
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1638590977277210}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 19.742147, y: 18.652987, z: 19.920563}
-  m_Center: {x: 0.73171633, y: 0.008249943, z: 0.5931524}
+  m_Size: {x: 6.5407233, y: 20.733484, z: 13.999999}
+  m_Center: {x: 6.9679427, y: 6.633256, z: 0}
 --- !u!114 &114007106790551376
 MonoBehaviour:
   m_ObjectHideFlags: 1
