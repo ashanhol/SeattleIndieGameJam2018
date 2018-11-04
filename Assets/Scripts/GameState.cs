@@ -10,10 +10,7 @@ public class GameState {
   public static int TotalPlotCount { get; set; }
   public static int TotalPlotCountLastRound { get; set; }
   public static int PlotsRemoved { get; set; }
+  public static int PlotsRemovedAtLastLap { get; set; }
   public static int LapsRunThroughLoop { get; set; }
   public static Queue<GameObject> onScreenPlot_ { get; set; }
-
-  // TODO: use this!
-  public static int TimeForLevel { get; set; }
-
 }

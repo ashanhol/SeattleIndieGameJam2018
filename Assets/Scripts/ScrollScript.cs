@@ -60,7 +60,7 @@ public class ScrollScript : MonoBehaviour {
         Destroy (toBeRemoved);
         SpawnNextPlot();
         ++GameState.PlotsRemoved;
-        Debug.Log(PlantingMechanics.CurrentPlotIndex);
+        PlantingMechanics.CheckAdvanceLoop();
     }
 
 }

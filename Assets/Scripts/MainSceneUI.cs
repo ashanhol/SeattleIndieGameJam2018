@@ -12,7 +12,6 @@ public class MainSceneUI : MonoBehaviour {
   }
 
   void Start () {
-    Invoke ("showSummaryPage", GameState.TimeForLevel);
   }
 
   public void showLevelSummaryScene () {

@@ -19,11 +19,16 @@ public class PlantingMechanics {
     GameState.PlantScore = new List<int>(new int[GameState.TotalPlotCount]);
     GameState.PlotsRemoved = 0;
     GameState.LapsRunThroughLoop = 0;
+    GameState.PlotsRemovedAtLastLap = 0;
     GameState.onScreenPlot_ = new Queue<GameObject> ();
   }
 
-  public static void AdvanceLoop () {
-    ++GameState.LapsRunThroughLoop;
+  public static void CheckAdvanceLoop () {
+    int _plotsToAdvanceLoop = GameState.TotalPlotCount * (GameState.LapsRunThroughLoop + 1);
+    if (GameState.PlotsRemoved >= _plotsToAdvanceLoop) {
+      ++GameState.LapsRunThroughLoop;
+      GameState.PlotsRemovedAtLastLap = GameState.PlotsRemoved;
+    }
   }
 
   public static int doPlayerAction (int PlayerActionValue) {
