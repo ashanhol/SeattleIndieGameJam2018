@@ -129,6 +129,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad00554203120474396ab4e93b403be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &13960743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 13960739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c139e04bb2f17094d994f03081dcf2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puff: {fileID: 1762178889225606, guid: 513803f63c46bf64b8bc6d1bb7e74477, type: 2}
+  NumCloudsOnscreen: 0
+  ScrollSpeed: 5
 --- !u!1 &202626294
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +418,12 @@ Prefab:
       propertyPath: PlantList.Array.data[10]
       value: 
       objectReference: {fileID: 1749886591308044, guid: ae680080d4b9a824ea029ec24a9e4ae9,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: puff
+      value: 
+      objectReference: {fileID: 1762178889225606, guid: 513803f63c46bf64b8bc6d1bb7e74477,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b7618180769694ab3859623ca37759, type: 2}
