@@ -13,4 +13,8 @@ public class GameState {
   public static int PlotsRemovedAtLastLap { get; set; }
   public static int LapsRunThroughLoop { get; set; }
   public static Queue<GameObject> onScreenPlot_ { get; set; }
+
+  //Maximum number of loops this game is gonna run through
+  public static int MaxLoops { get; set; }
+   
 }
