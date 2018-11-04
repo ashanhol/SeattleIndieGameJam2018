@@ -8,26 +8,28 @@ public class ScrollScript : MonoBehaviour {
     public int NumPlotsOnscreen;
     public int ScrollSpeed;
 
-    void Start () {
+    //last object queued to calculate where next should spawn
+    GameObject temp = null;
+
+    void Start ()
+    {
         ScrollSpeed = 15; //for now, we should set in editor
 
         //No more than NumPlotsOnScreen at once, plus the one going on/off screen
         //Make sure you spawn plotPrefab, not empty gameobject
         GameState.onScreenPlot_ = new Queue<GameObject> ();
 
-        //last object queued to calculate where next should spawn
-        GameObject temp = null;
 
         //Populate queue with starting plots
         for (int i = 0; i < NumPlotsOnscreen + 1; i++) {
             //Spawn in default area if first object
-            if (i == 0) {
-                GameState.onScreenPlot_.Enqueue (temp = Instantiate (plotPrefab));
-            } else {
-                //Spawn where the last object ends if not first object
-                Vector3 nextPos = new Vector3 ((temp.transform.position.x + plotPrefab.GetComponentInChildren<Renderer> ().bounds.extents.x * 2), temp.transform.position.y, temp.transform.position.z);
-
-                GameState.onScreenPlot_.Enqueue (temp = Instantiate (plotPrefab, nextPos, Quaternion.identity));
+            if (i == 0)
+            {
+                GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab));
+            }
+            else
+            {
+                SpawnNextPlot();
             }
         }
 
@@ -49,8 +51,13 @@ public class ScrollScript : MonoBehaviour {
     }
 
     //Function to spawn the next plot in the queue offscreen
-    void SpawnNextPlot () {
+    void SpawnNextPlot()
+    {
+        //Spawn where the last object ends if not first object
+        Vector3 nextPos = new Vector3((temp.transform.position.x + plotPrefab.GetComponentInChildren<Renderer>().bounds.extents.x * 2), temp.transform.position.y, temp.transform.position.z);
+
         //Add next plot to onScreenPlot_
+        GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity));
 
     }
 
@@ -59,6 +66,8 @@ public class ScrollScript : MonoBehaviour {
     public void RemoveOffscreenPlot (GameObject toBeRemoved) {
         Destroy (toBeRemoved);
         //Spawn next plot()
+
+        SpawnNextPlot();
 
     }
 
