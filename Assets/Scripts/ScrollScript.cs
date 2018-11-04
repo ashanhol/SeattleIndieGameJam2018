@@ -52,7 +52,9 @@ public class ScrollScript : MonoBehaviour {
         //Foreach gameobject in queue, move left
         foreach(var plot in GameState.onScreenPlot_)
         {
-            plot.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed);
+            if(plot) {
+                plot.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed);
+            }
         }
     }
 
