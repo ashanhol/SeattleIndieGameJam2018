@@ -73,17 +73,9 @@ public class ScrollScript : MonoBehaviour {
             Instantiate (babyPlantPrefab, CurrentPlot.transform.GetChild (0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnCurrentIndex ()) {
-            int score = PlantingMechanics.CurrentPlotScore;
-            if (score <= 0)
-            {
-
-            }
-            else
-            {
-
-            }
-            //Figure out what plant to spawn
-            // Instantiate(PlantList[plantnum], CurrentPlot.transform.GetChild(0));
+            int _score = PlantingMechanics.CurrentPlotScore;
+            int currentPlantnum = GetPlantNumForScore(_score);
+            Instantiate(PlantList[currentPlantnum], temp.transform.GetChild(0));
         }
     }
 
@@ -93,18 +85,21 @@ public class ScrollScript : MonoBehaviour {
             Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex ()) {
-            int score = PlantingMechanics.JustAddedPlotScore;
-            if (score <= 0)
-            {
-
-            }
-            else
-            {
-
-            }
-            //Figure out what plant to spawn
-            // Instantiate(PlantList[plantnum], temp.transform.GetChild(0));
+            int _score = PlantingMechanics.JustAddedPlotScore;
+            int currentPlantnum = GetPlantNumForScore(_score);
+            Instantiate(PlantList[currentPlantnum], temp.transform.GetChild(0));
         }
+    }
+
+    // given a score, return a plant number
+    public int GetPlantNumForScore (int score) {
+        int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
+        int currentPlantnum = 0;
+        if (score > 0)
+        {
+            currentPlantnum = (int) Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
+        }
+        return currentPlantnum;
     }
 
     static GameObject CurrentPlot {
