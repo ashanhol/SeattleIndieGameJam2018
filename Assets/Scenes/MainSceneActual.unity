@@ -322,6 +322,18 @@ Prefab:
       propertyPath: ScrollSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: babyPlantPrefab
+      value: 
+      objectReference: {fileID: 1897006191848536, guid: 7e911745bc5643f44bb730c60918f60e,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: StandInPlant
+      value: 
+      objectReference: {fileID: 1361145716728904, guid: aa76cb02f81970b42b1fa603fdb9bdc0,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b7618180769694ab3859623ca37759, type: 2}
   m_IsPrefabAsset: 0

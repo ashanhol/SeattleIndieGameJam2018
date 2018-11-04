@@ -7,7 +7,10 @@ using UnityEngine;
 public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
+    public GameObject babyPlantPrefab;
     public int ScrollSpeed = 15;
+
+    public GameObject StandInPlant;
 
     //last object queued to calculate where next should spawn
     GameObject temp = null;
@@ -65,9 +68,11 @@ public class ScrollScript : MonoBehaviour {
         GameState.onScreenPlot_.Dequeue();
         if (PlantingMechanics.ShouldSpawnBabyPlant()) {
             // TODO Adina spawn a plant
+            Instantiate(babyPlantPrefab, LastPlot.transform.GetChild(0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlant()) {
             // TODO Adina spawn a plant
+            Instantiate(StandInPlant, LastPlot.transform.GetChild(0));
         }
     }
 
