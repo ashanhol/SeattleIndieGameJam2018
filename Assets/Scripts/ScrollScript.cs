@@ -107,7 +107,7 @@ public class ScrollScript : MonoBehaviour {
         }
     }
 
-    static GameObject CurrentPlot {
+    public GameObject CurrentPlot {
         get {
             int _currentPlotIndex = (int) Math.Floor ((double) GameState.onScreenPlot_.Count / 2);
             GameObject _currentPlot = GameState.onScreenPlot_.ElementAt (_currentPlotIndex);

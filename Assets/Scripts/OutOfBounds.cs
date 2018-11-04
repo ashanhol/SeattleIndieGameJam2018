@@ -8,7 +8,7 @@ public class OutOfBounds : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        gameController = GameObject.FindGameObjectWithTag("GameController");
     }
 
     // Update is called once per frame
@@ -16,14 +16,44 @@ public class OutOfBounds : MonoBehaviour {
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("PlayerCollide");
+            if(gameController.GetComponent<ScrollScript>().CurrentPlot == gameObject)
+            {
+                Debug.Log("Script is on: " + gameObject);
+                Debug.Log("Current plot is : " + gameController.GetComponent<ScrollScript>().CurrentPlot);
+
+                Debug.Log(gameObject.GetComponentInChildren<Light>().enabled = true);
+               // Debug.Log(gameController.GetComponent<ScrollScript>().CurrentPlot.GetComponentInChildren<Light>().enabled = true);
+            }
+        }
+    }
+
+
     private void OnTriggerExit (Collider other) {
-        if (other.gameObject.tag == "Boundary")
+
+        if(other.gameObject.tag == "Player")
+        {
+            Debug.Log("Exit PlayerCollide");
+
+            if (gameController.GetComponent<ScrollScript>().CurrentPlot != gameObject)
+            {
+
+                Debug.Log(gameController.GetComponent<ScrollScript>().CurrentPlot.GetComponentInChildren<Light>().enabled = false);
+
+            }
+        }
+
+
+        else if (other.gameObject.tag == "Boundary")
         {
             // TODO: re-add removing the clouds from the scene
             //  and also make sure that you're removing both the cloud
             //  amd the plot (possibly theyre in an array?)
-            gameController = GameObject.FindGameObjectWithTag("GameController");
-            gameController.GetComponent<ScrollScript> ().RemoveOffscreenPlot (gameObject);
+            gameController.GetComponent<ScrollScript>().RemoveOffscreenPlot(gameObject);
         }
 
     }
