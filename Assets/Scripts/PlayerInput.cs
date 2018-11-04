@@ -34,6 +34,10 @@ public class PlayerInput : MonoBehaviour
         {
             //TODO: PAUSE MENU
         }
+        else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
+        {
+            PlantingMechanics.doPlayerAction((int)pa);
+        }
     }
 
     PlayerAction CycleThroughActions(string cycleDirection, PlayerAction CurPa)

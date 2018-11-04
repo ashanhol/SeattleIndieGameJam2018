@@ -62,6 +62,8 @@ public class ScrollScript : MonoBehaviour {
         Destroy (toBeRemoved);
         SpawnNextPlot();
         PlantingMechanics.TileAdvance();
+        GameState.onScreenPlot_.Dequeue();
+
     }
 
     public static GameObject LastPlot {
