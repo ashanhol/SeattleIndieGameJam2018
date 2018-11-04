@@ -147,6 +147,14 @@ public class PlantingMechanics {
     }
   }
 
+  // find the score of the "just added plot"
+  // the "just added plot" is the plot that was most recently added to on screen plots
+  public static int JustAddedPlotScore {
+    get {
+      return GameState.PlantScore[JustAddedPlotIndex];
+    }
+  }
+
   // find the score of the "last plot"
   // the "last plot" is the plot to the left of the plot the player is currently on
   public static int LastPlotScore {
