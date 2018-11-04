@@ -48,7 +48,25 @@ public class PlantingMechanics {
     }
   }
 
-  public static bool ShouldSpawnBabyPlant () {
+  public static bool ShouldSpawnBabyPlantOnJustAddedIndex() {
+    int _justAddedPlotIndex = JustAddedPlotIndex;
+    List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
+    if (_justAddedPlotActions.Count == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  public static bool ShouldSpawnAdultPlantOnJustAddedIndex() {
+    int _justAddedPlotIndex = JustAddedPlotIndex;
+    List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
+    if (_justAddedPlotActions.Count > 1) {
+      return true;
+    }
+    return false;
+  }
+
+  public static bool ShouldSpawnBabyPlantOnLastIndex () {
     int _lastPlotIndex = LastPlotIndex;
     List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
     if (_lastPlotActions.Count == 1) {
@@ -57,7 +75,7 @@ public class PlantingMechanics {
     return false;
   }
 
-  public static bool ShouldSpawnAdultPlant () {
+  public static bool ShouldSpawnAdultPlantOnLastIndex () {
     int _lastPlotIndex = LastPlotIndex;
     List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
     if (_lastPlotActions.Count > 1) {
@@ -96,6 +114,14 @@ public class PlantingMechanics {
   public static int LastPlotScore {
     get {
       return GameState.PlantScore[LastPlotIndex];
+    }
+  }
+
+  public static int JustAddedPlotIndex {
+    get {
+      int _maxPlusRemoved = GameState.PlotsRemoved + GameState.TotalPlotCount;
+      int _justAddedPlotIndex = (_maxPlusRemoved - 1) % GameState.TotalPlotCount;
+      return _justAddedPlotIndex;
     }
   }
 
