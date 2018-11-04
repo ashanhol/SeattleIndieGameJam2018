@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public enum PlayerAction : int {
@@ -12,49 +13,42 @@ public enum PlayerAction : int {
 public class PlantingMechanics {
   public static int LoopPlotIncreaseCount = 4;
 
-  public static PlantObject[] GenerateLevel () {
-    GameState.Plots = new PlantObject[GameState.TotalPlotCount];
+  public static void GenerateLevel () {
     GameState.TotalPlotCountLastRound = GameState.TotalPlotCount;
     GameState.TotalPlotCount = GameState.TotalPlotCount + LoopPlotIncreaseCount;
+    GameState.PlantScore = new List<int>(new int[GameState.TotalPlotCount]);
+    GameState.PlotsRemoved = 0;
     GameState.LapsRunThroughLoop = 0;
-    return GameState.Plots;
+    GameState.onScreenPlot_ = new Queue<GameObject> ();
   }
 
-  public static PlantObject[] AdvanceLoop () {
-    GameState.CurrentPlotIndex = 0;
+  public static void AdvanceLoop () {
     ++GameState.LapsRunThroughLoop;
-    return GameState.Plots;
   }
 
-  //Need function for matching score with plant
   public static int doPlayerAction (int PlayerActionValue) {
-    CurrentPlot.Actions.Add(PlayerActionValue);
     int actionScore = PlayerActionValue * GameState.LapsRunThroughLoop;
-    CurrentPlot.Score += actionScore;
+    GameState.PlantScore[CurrentPlotIndex] += actionScore;
     return actionScore;
   }
 
   public static int TotalScore {
     get {
       int _totalScore = 0;
-      for (int i = 0; i < GameState.TotalPlotCount; i++) {
-        _totalScore += CurrentPlot.Score;
+      foreach (var _score in GameState.PlantScore) {
+        _totalScore += _score;
       }
       return _totalScore;
     }
   }
 
-  public static PlantObject CurrentPlot {
+  public static int CurrentPlotIndex {
     get {
-      return GameState.Plots[GameState.CurrentPlotIndex];
+      int _plotMidpointOffset = (int)Math.Floor((double) GameState.TotalPlotCount / 2);
+      int _midpointPlusRemoved = GameState.PlotsRemoved + _plotMidpointOffset;
+      int _currentPlotIndex = _midpointPlusRemoved % GameState.TotalPlotCount;
+      return _currentPlotIndex;
     }
   }
 
-}
-
-public class PlantObject {
-  //Score
-  public int Score { get; set; }
-  //For keeping track of Actions taken on which turn
-  public List<int> Actions { get; set; }
 }

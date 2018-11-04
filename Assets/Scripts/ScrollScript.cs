@@ -5,23 +5,16 @@ using UnityEngine;
 public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
-    public int NumPlotsOnscreen;
-    public int ScrollSpeed;
+    public int ScrollSpeed = 15;
 
     //last object queued to calculate where next should spawn
     GameObject temp = null;
 
     void Start ()
     {
-        ScrollSpeed = 15; //for now, we should set in editor
-
-        //No more than NumPlotsOnScreen at once, plus the one going on/off screen
-        //Make sure you spawn plotPrefab, not empty gameobject
-        GameState.onScreenPlot_ = new Queue<GameObject> ();
-
-
+        PlantingMechanics.GenerateLevel();
         //Populate queue with starting plots
-        for (int i = 0; i < NumPlotsOnscreen + 1; i++) {
+        for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
             //Spawn in default area if first object
             if (i == 0)
             {
@@ -65,10 +58,9 @@ public class ScrollScript : MonoBehaviour {
     //Should be called when plot has hit offscreen boundry
     public void RemoveOffscreenPlot (GameObject toBeRemoved) {
         Destroy (toBeRemoved);
-        //Spawn next plot()
-
         SpawnNextPlot();
-
+        ++GameState.PlotsRemoved;
+        Debug.Log(PlantingMechanics.CurrentPlotIndex);
     }
 
 }
