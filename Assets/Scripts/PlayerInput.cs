@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour
     PlayerAction pa = PlayerAction.Seed;
     public GameObject gameController;
 
+    public static bool GameIsPaused = false;
+    public GameObject pauseMenuUI;
 
     // Use this for initialization
     void Start ()
@@ -32,7 +34,13 @@ public class PlayerInput : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("Escape key pressed");
             //TODO: PAUSE MENU
+            if(GameIsPaused){
+                Resume();
+            }else{
+                Pause();
+            }
         }
         else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
         {
@@ -41,6 +49,31 @@ public class PlayerInput : MonoBehaviour
             gameController.GetComponent<ScrollScript> ().CheckPlantGrowth ();
         }
     }
+
+    // Resume Game
+    void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+    }
+
+    // Pause Game
+    void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
+    public void LoadMenu()
+    {
+        Debug.Log("Loading menu...");
+    }
+
+
+
+
 
     PlayerAction CycleThroughActions(string cycleDirection, PlayerAction CurPa)
     {
