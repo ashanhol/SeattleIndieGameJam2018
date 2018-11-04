@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
+    public GameObject babyPlantPrefab;
     public int ScrollSpeed = 15;
+
+    public GameObject[] PlantList;
 
     //last object queued to calculate where next should spawn
     GameObject temp = null;
@@ -25,8 +30,6 @@ public class ScrollScript : MonoBehaviour {
                 SpawnNextPlot();
             }
         }
-
-        //PlantObject p = PlantingMechanics.plots[0];
     }
 
     void FixedUpdate () {
@@ -52,6 +55,14 @@ public class ScrollScript : MonoBehaviour {
         //Add next plot to onScreenPlot_
         GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity));
 
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnJustAddedIndex()) {
+            // TODO Adina spawn a plant
+            Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
+        }
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex()) {
+            //Figure out what plant to spawn
+            //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
+        }
     }
 
     //Function to remove first element from queue since it's offscreen
@@ -59,8 +70,27 @@ public class ScrollScript : MonoBehaviour {
     public void RemoveOffscreenPlot (GameObject toBeRemoved) {
         Destroy (toBeRemoved);
         SpawnNextPlot();
-        ++GameState.PlotsRemoved;
-        PlantingMechanics.CheckAdvanceLoop();
+        PlantingMechanics.TileAdvance();
+        GameState.onScreenPlot_.Dequeue();
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnLastIndex()) {
+            // TODO Adina spawn a plant
+            Instantiate(babyPlantPrefab, LastPlot.transform.GetChild(0));
+        }
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnLastIndex()) {
+            //Figure out what plant to spawn
+
+
+            // TODO Adina spawn a plant
+            //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
+        }
+    }
+
+    public static GameObject LastPlot {
+        get {
+            int _previousPlotIndex = (int)Math.Floor((double) GameState.onScreenPlot_.Count / 2) - 1;
+            GameObject previousPlot = GameState.onScreenPlot_.ElementAt(_previousPlotIndex);
+            return previousPlot;
+        }
     }
 
 }

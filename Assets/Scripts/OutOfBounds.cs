@@ -17,11 +17,18 @@ public class OutOfBounds : MonoBehaviour {
     }
 
     private void OnTriggerExit (Collider other) {
-        Debug.Log ("hit");
         if (other.gameObject.tag == "Boundary")
         {
             gameController = GameObject.FindGameObjectWithTag("GameController");
-            gameController.GetComponent<ScrollScript> ().RemoveOffscreenPlot (gameObject);
+            if (gameObject.tag == "Plot")
+            {
+                gameController.GetComponent<ScrollScript>().RemoveOffscreenPlot(gameObject);
+            }
+            else if (gameObject.tag == "Cloud")
+            {
+                Debug.Log("CloudExit");
+                gameController.GetComponent<CloudScript>().RemoveOffscreenCloud(gameObject);
+            }
         }
 
     }

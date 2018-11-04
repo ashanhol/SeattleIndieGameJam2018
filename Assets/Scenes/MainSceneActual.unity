@@ -129,6 +129,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad00554203120474396ab4e93b403be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &13960743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 13960739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c139e04bb2f17094d994f03081dcf2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puff: {fileID: 1762178889225606, guid: 513803f63c46bf64b8bc6d1bb7e74477, type: 2}
+  NumCloudsOnscreen: 0
+  ScrollSpeed: 5
 --- !u!1 &202626294
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +293,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.size
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4011067106189668, guid: c4b7618180769694ab3859623ca37759, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -322,6 +341,90 @@ Prefab:
       propertyPath: ScrollSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: babyPlantPrefab
+      value: 
+      objectReference: {fileID: 1897006191848536, guid: 7e911745bc5643f44bb730c60918f60e,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: StandInPlant
+      value: 
+      objectReference: {fileID: 1361145716728904, guid: aa76cb02f81970b42b1fa603fdb9bdc0,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[0]
+      value: 
+      objectReference: {fileID: 1794769607483076, guid: 57646057b7f672540bf256a2d1c15f90,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[1]
+      value: 
+      objectReference: {fileID: 1042809102324748, guid: f6dbf714fc3ca934aa21cd769bcd4f0e,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[2]
+      value: 
+      objectReference: {fileID: 1703187873016976, guid: 4ac45f880ec92dc4a984672dd58200e5,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[3]
+      value: 
+      objectReference: {fileID: 1077860859072704, guid: 0ad5e94a0cc915f4ea32482dcafbb9f0,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[4]
+      value: 
+      objectReference: {fileID: 1820222678081842, guid: 54f3fbcbddda43e4f800619c1c074264,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[5]
+      value: 
+      objectReference: {fileID: 1400412468664954, guid: faa858a4350a7174696dfd7c5151fe4a,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[6]
+      value: 
+      objectReference: {fileID: 1361145716728904, guid: aa76cb02f81970b42b1fa603fdb9bdc0,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[7]
+      value: 
+      objectReference: {fileID: 1608821566813722, guid: 3e2126f088ba1324899349214bc9b542,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[8]
+      value: 
+      objectReference: {fileID: 1220896636619498, guid: 8c4daf0cdb9c7224b8bc3a825540e2c7,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[9]
+      value: 
+      objectReference: {fileID: 1584080391395630, guid: f9b8a8beaf20609449bc707c2cb40a70,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: PlantList.Array.data[10]
+      value: 
+      objectReference: {fileID: 1749886591308044, guid: ae680080d4b9a824ea029ec24a9e4ae9,
+        type: 2}
+    - target: {fileID: 114828509592673784, guid: c4b7618180769694ab3859623ca37759,
+        type: 2}
+      propertyPath: puff
+      value: 
+      objectReference: {fileID: 1762178889225606, guid: 513803f63c46bf64b8bc6d1bb7e74477,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4b7618180769694ab3859623ca37759, type: 2}
   m_IsPrefabAsset: 0
