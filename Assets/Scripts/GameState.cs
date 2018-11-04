@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameState {
 
   public static List<int> PlantScore { get; set; }
-  public static List<List<int>> PlantActions { get; set; }
+  public static Dictionary<int, List<int>> PlantActions { get; set; }
   public static int TotalPlotCount { get; set; }
   public static int TotalPlotCountLastRound { get; set; }
   public static int PlotsRemoved { get; set; }

@@ -17,6 +17,10 @@ public class PlantingMechanics {
     GameState.TotalPlotCountLastRound = GameState.TotalPlotCount;
     GameState.TotalPlotCount = GameState.TotalPlotCount + LoopPlotIncreaseCount;
     GameState.PlantScore = new List<int>(new int[GameState.TotalPlotCount]);
+    GameState.PlantActions = new Dictionary<int, List<int>>();
+    for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
+      GameState.PlantActions.Add(i, new List<int>(new int[0]));
+    }
     GameState.PlotsRemoved = 0;
     GameState.LapsRunThroughLoop = 0;
     GameState.PlotsRemovedAtLastLap = 0;
@@ -35,7 +39,8 @@ public class PlantingMechanics {
 
   public static bool ShouldSpawnBabyPlant() {
     int _lastPlotIndex = LastPlotIndex;
-    if (GameState.PlantActions[_lastPlotIndex].Count == 1) {
+    List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
+    if (_lastPlotActions.Count == 1) {
       return true;
     }
     return false;
@@ -43,7 +48,8 @@ public class PlantingMechanics {
 
   public static bool ShouldSpawnAdultPlant() {
     int _lastPlotIndex = LastPlotIndex;
-    if (GameState.PlantActions[_lastPlotIndex].Count > 1) {
+    List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
+    if (_lastPlotActions.Count > 1) {
       return true;
     }
     return false;
@@ -74,7 +80,11 @@ public class PlantingMechanics {
 
   public static int LastPlotIndex {
     get {
-      return CurrentPlotIndex - 1;
+      int _lastPlotIndex = CurrentPlotIndex - 1;
+      if (_lastPlotIndex == -1) {
+        _lastPlotIndex = GameState.TotalPlotCount;
+      }
+      return _lastPlotIndex;
     }
   }
 
