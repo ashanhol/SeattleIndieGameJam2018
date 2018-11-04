@@ -214,17 +214,17 @@ f
     }
   }
 
-    // given a score, return a plant number
-    public static int GetPlantNumForScore(int score, GameObject[] PlantList)
-    {
-        int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
-        int currentPlantnum = 0;
-        if (score > 0)
-        {
-            currentPlantnum = (int)Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
-        }
-        return currentPlantnum;
-    }
+  // given a score, return a plant number
+  public static int GetPlantNumForScore(int score, GameObject[] PlantList)
+  {
+      int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
+      int currentPlantnum = 0;
+      if (score > 0)
+      {
+          currentPlantnum = (int)Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
+      }
+      return currentPlantnum;
+  }
 
   public static int NextBackendPlotIndex(int lastPlotIndex) {
     int _nextPlotIndex = lastPlotIndex + 1;
