@@ -30,6 +30,10 @@ public class PlayerInput : MonoBehaviour
             pa = CycleThroughActions("Right", pa);
             Debug.Log("now " + pa.ToString());
         }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            //TODO: PAUSE MENU
+        }
     }
 
     PlayerAction CycleThroughActions(string cycleDirection, PlayerAction CurPa)
