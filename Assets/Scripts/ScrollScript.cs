@@ -71,8 +71,16 @@ public class ScrollScript : MonoBehaviour {
             Instantiate(babyPlantPrefab, LastPlot.transform.GetChild(0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlant()) {
-            //Figure out what plant to spawn
+            //TODO: Figure out what plant to spawn
+            int score = PlantingMechanics.LastPlotScore;
+            if(score <= 0)
+            { 
+                
+            }
+            else
+            {
 
+            }
 
             // TODO Adina spawn a plant
             //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
