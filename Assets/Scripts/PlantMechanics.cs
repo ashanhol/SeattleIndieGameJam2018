@@ -75,6 +75,12 @@ public class PlantingMechanics {
     }
   }
 
+  public static int LastPlotScore {
+    get {
+      return GameState.PlantScore[LastPlotIndex];
+    }
+  }
+
   public static int LastPlotIndex {
     get {
       return CurrentPlotIndex - 1;
