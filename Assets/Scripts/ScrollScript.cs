@@ -4,10 +4,6 @@ using System;
 using System.Linq;
 using UnityEngine;
 
- public class PlotData : MonoBehaviour {
-    public int BackendPlotIndex { get; set; }
-}
-
 public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
@@ -122,6 +118,13 @@ public class ScrollScript : MonoBehaviour {
         GameState.onScreenPlotBackendIndex_.Enqueue(_thisBackendPlotIndex);
     }
 
+    public void SetGivenPlotAsCurrentPlot (GameObject plot){
+        PlotData plotData = plot.GetComponentInChildren(typeof(PlotData)) as PlotData;
+        int backendPlotIndex = plotData.BackendPlotIndex;
+        PlantingMechanics.CurrentIndex = backendPlotIndex;
+    }
+
+    // find the plot the was added most recently
     static GameObject LastAddedPlot {
         get {
             GameObject[] _queueArray = GameState.onScreenPlot_.ToArray();
@@ -130,11 +133,20 @@ public class ScrollScript : MonoBehaviour {
         }
     }
 
+    // find the plot that is closest to the player
     public GameObject CurrentPlot {
         get {
-            int _currentPlotIndex = (int) Math.Floor ((double) GameState.onScreenPlot_.Count / 2);
-            GameObject _currentPlot = GameState.onScreenPlot_.ElementAt (_currentPlotIndex);
-            return _currentPlot;
+            // look for a plot that matches the current plot index
+            int currentClosestIndex = PlantingMechanics.CurrentIndex;
+            foreach (var plot in GameState.onScreenPlot_) {
+                PlotData plotData = plot.GetComponentInChildren(typeof(PlotData)) as PlotData;
+                int thisBackendPlotIndex = plotData.BackendPlotIndex;
+                if (thisBackendPlotIndex == currentClosestIndex) {
+                    return plot;
+                }
+            }
+            // otherwise get the first plot (we should never be hitting this case)
+            return GameState.onScreenPlot_.ToArray()[0];
         }
     }
 
