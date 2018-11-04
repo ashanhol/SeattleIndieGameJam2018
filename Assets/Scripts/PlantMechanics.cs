@@ -16,6 +16,9 @@ public class PlantingMechanics {
   //How many plots we're increasing per level
   public static int LoopPlotIncreaseCount = 5;
 
+  // How many actions do you have to do on a plant, before it grows to adulthood
+  public static int ActionsRequiredToGrowToAdulthood = 3;
+
   // setup all the initial state required to generate a new level
   // this mostly includes generating empty lists, and setting attributes to zero
   public static void GenerateLevel () {
@@ -67,7 +70,7 @@ public class PlantingMechanics {
   public static bool ShouldSpawnAdultPlantOnJustAddedIndex() {
     int _justAddedPlotIndex = JustAddedPlotIndex;
     List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
-    if (_justAddedPlotActions.Count > 1) {
+    if (_justAddedPlotActions.Count >= ActionsRequiredToGrowToAdulthood) {
       return true;
     }
     return false;
@@ -85,7 +88,7 @@ public class PlantingMechanics {
   public static bool ShouldSpawnAdultPlantOnCurrentIndex () {
     int _currentPlotIndex = CurrentPlotIndex;
     List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
-    if (_currentPlotActions.Count > 1) {
+    if (_currentPlotActions.Count >= ActionsRequiredToGrowToAdulthood) {
       return true;
     }
     return false;
