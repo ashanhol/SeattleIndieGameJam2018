@@ -107,8 +107,8 @@ public class PlantingMechanics {
   // the maximium score you can have for a plant, as of it growing into an adult
   private static int GetMaximumPossibleScoreForGrownPlant() {
     int _maxScore = 0;
-    for (int i = 0; i < GameState.MaxLoops; i++) {
-      _maxScore += (int)PlayerAction.Seed * (i + 1);
+    for (int i = 0; i < GameState.MaxLoops + 1; i++) {
+      _maxScore += (int)PlayerAction.Seed * (i + 2);
     }
     return _maxScore;
   }
@@ -129,9 +129,10 @@ public class PlantingMechanics {
   {
     int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
     int currentPlantnum = 0;
+    int maxPlantNumIndex = PlantList.Count() - 1;
     if (score > 0)
     {
-        currentPlantnum = (int)Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
+        currentPlantnum = (int) Math.Floor( (double) maxPlantNumIndex * score / maxScore);
     }
     return currentPlantnum;
   }
