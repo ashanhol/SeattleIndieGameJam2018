@@ -4,6 +4,10 @@ using System;
 using System.Linq;
 using UnityEngine;
 
+ public class PlotData : MonoBehaviour {
+    public int BackendPlotIndex { get; set; }
+}
+
 public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
@@ -20,7 +24,8 @@ public class ScrollScript : MonoBehaviour {
             //Spawn in default area if first object
             if (i == 0)
             {
-                GameState.onScreenPlot_.Enqueue(Instantiate(plotPrefab));
+                GameObject _thisPlot = Instantiate(plotPrefab);
+                AddNewPlot(_thisPlot);
             }
             else
             {
@@ -48,16 +53,20 @@ public class ScrollScript : MonoBehaviour {
     {
         //Spawn where the last object ends if not first object
 
-        float nextXPos = LastAddedPlot.transform.position.x +
+        GameObject _lastPlot = LastAddedPlot;
+        PlotData _lastPlotData = _lastPlot.GetComponentInChildren(typeof(PlotData)) as PlotData;
+        int _lastPlotIndex = _lastPlotData.BackendPlotIndex;
+
+        float nextXPos = _lastPlot.transform.position.x +
             plotPrefab.GetComponentInChildren<Renderer>().bounds.extents.x * 2;
         Vector3 nextPos = new Vector3(
             nextXPos,
-            LastAddedPlot.transform.position.y,
-            LastAddedPlot.transform.position.z);
+            _lastPlot.transform.position.y,
+            _lastPlot.transform.position.z);
 
         //Add next plot to onScreenPlot_
-        GameState.onScreenPlot_.Enqueue(Instantiate(plotPrefab, nextPos, Quaternion.identity));
-
+        GameObject _thisPlot = Instantiate(plotPrefab, nextPos, Quaternion.identity);
+        AddNewPlot(_thisPlot, _lastPlotIndex);
         CheckPlantRerendering();
     }
 
@@ -68,6 +77,7 @@ public class ScrollScript : MonoBehaviour {
         SpawnNextPlot ();
         PlantingMechanics.TileAdvance ();
         GameState.onScreenPlot_.Dequeue ();
+        GameState.onScreenPlotBackendIndex_.Dequeue ();
     }
 
     // check if a plant should be grown on the current plot
@@ -94,6 +104,29 @@ public class ScrollScript : MonoBehaviour {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    // given a score, return a plant number
+    public int GetPlantNumForScore (int score) {
+        int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
+        int currentPlantnum = 0;
+        if (score > 0)
+        {
+            currentPlantnum = (int) Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
+        }
+        return currentPlantnum;
+    }
+
+    // adds a new plot and plot index to the backend data
+    public void AddNewPlot (GameObject thisPlot, int lastPlotIndex = -1) {
+        PlotData thisPlotData = thisPlot.AddComponent(typeof(PlotData)) as PlotData;
+        int _thisBackendPlotIndex = PlantingMechanics.NextBackendPlotIndex(lastPlotIndex);
+        thisPlotData.BackendPlotIndex = _thisBackendPlotIndex;
+        GameState.onScreenPlot_.Enqueue(thisPlot);
+        GameState.onScreenPlotBackendIndex_.Enqueue(_thisBackendPlotIndex);
+    }
+
+>>>>>>> Stashed changes
     static GameObject LastAddedPlot {
         get {
             GameObject[] _queueArray = GameState.onScreenPlot_.ToArray();

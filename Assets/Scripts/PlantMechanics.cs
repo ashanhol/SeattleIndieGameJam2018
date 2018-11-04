@@ -58,6 +58,22 @@ public class PlantingMechanics {
     }
   }
 
+  public static bool ShouldSpawnBabyPlant(int backendPlotIndex) {
+    List<int> _plotActions = GameState.PlantActions[backendPlotIndex];
+    if (_plotActions.Count == 1) {
+      return true;
+    }
+    return false;
+  }
+f
+  public static bool ShouldSpawnAdultPlant(int backendPlotIndex) {
+    List<int> _plotActions = GameState.PlantActions[backendPlotIndex];
+    if (_plotActions.Count >= ActionsRequiredToGrowToAdulthood) {
+      return true;
+    }
+    return false;
+  }
+
   // should we spawn a baby plan on the "just added plot"
   // the "just added plot" is the plot that was most recently added to on screen plots
   public static bool ShouldSpawnBabyPlantOnJustAddedIndex() {
@@ -181,7 +197,7 @@ public class PlantingMechanics {
     get {
       int _lastPlotIndex = CurrentPlotIndex - 1;
       if (_lastPlotIndex == -1) {
-        _lastPlotIndex = GameState.TotalPlotCount;
+        _lastPlotIndex = GameState.TotalPlotCount ;
       }
       return _lastPlotIndex;
     }
@@ -209,5 +225,16 @@ public class PlantingMechanics {
         }
         return currentPlantnum;
     }
+
+  public static int NextBackendPlotIndex(int lastPlotIndex) {
+    int _nextPlotIndex = lastPlotIndex + 1;
+    if (_nextPlotIndex == GameState.TotalPlotCount) {
+      _nextPlotIndex = 0;
+    }
+    if (_nextPlotIndex > GameState.TotalPlotCount) {
+      Debug.Log("error in NextBackendPlotIndex logic");
+    }
+    return _nextPlotIndex;
+  }
 
 }
