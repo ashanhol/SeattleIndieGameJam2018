@@ -14,8 +14,10 @@ public enum PlayerAction : int {
 //Should only have one of these classes initalized at once
 public class PlantingMechanics {
   //How many plots we're increasing per level
-  public static int LoopPlotIncreaseCount = 4;
+  public static int LoopPlotIncreaseCount = 5;
 
+  // setup all the initial state required to generate a new level
+  // this mostly includes generating empty lists, and setting attributes to zero
   public static void GenerateLevel () {
     GameState.TotalPlotCountLastRound = GameState.TotalPlotCount;
     GameState.TotalPlotCount = GameState.TotalPlotCount + LoopPlotIncreaseCount;
@@ -27,18 +29,19 @@ public class PlantingMechanics {
     }
     GameState.PlotsRemoved = 0;
     GameState.LapsRunThroughLoop = 0;
-    GameState.PlotsRemovedAtLastLap = 0;
     GameState.onScreenPlot_ = new Queue<GameObject> ();
     GameState.MaxLoops = 3;
   }
 
+  // called whenever a tile leaves the scene (which is also when tiles are added)
   public static void TileAdvance () {
     ++GameState.PlotsRemoved;
 
+    // check it this tile advance action corresponds to completing a loop
     int _plotsToAdvanceLoop = GameState.TotalPlotCount * (GameState.LapsRunThroughLoop + 1);
     if (GameState.PlotsRemoved >= _plotsToAdvanceLoop) {
+      // reset all the "have you done actions this loop" values to false
       GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat (false, GameState.TotalPlotCount).ToList ();
-      GameState.PlotsRemovedAtLastLap = GameState.PlotsRemoved;
       ++GameState.LapsRunThroughLoop;
       if (GameState.LapsRunThroughLoop > GameState.MaxLoops) {
         //TODO: END GAME
@@ -48,7 +51,31 @@ public class PlantingMechanics {
     }
   }
 
-  public static bool ShouldSpawnBabyPlant () {
+  // should we spawn a baby plan on the "just added plot"
+  // the "just added plot" is the plot that was most recently added to on screen plots
+  public static bool ShouldSpawnBabyPlantOnJustAddedIndex() {
+    int _justAddedPlotIndex = JustAddedPlotIndex;
+    List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
+    if (_justAddedPlotActions.Count == 1) {
+      return true;
+    }
+    return false;
+  }
+
+  // should we spawn an adut plan on the "just added plot"
+  // the "just added plot" is the plot that was most recently added to on screen plots
+  public static bool ShouldSpawnAdultPlantOnJustAddedIndex() {
+    int _justAddedPlotIndex = JustAddedPlotIndex;
+    List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
+    if (_justAddedPlotActions.Count > 1) {
+      return true;
+    }
+    return false;
+  }
+
+  // should we spawn a baby plan on the "last plot"
+  // the "last plot" is the plot to the left of the plot the player is currently on
+  public static bool ShouldSpawnBabyPlantOnLastIndex () {
     int _lastPlotIndex = LastPlotIndex;
     List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
     if (_lastPlotActions.Count == 1) {
@@ -57,7 +84,9 @@ public class PlantingMechanics {
     return false;
   }
 
-  public static bool ShouldSpawnAdultPlant () {
+  // should we spawn an adult plant on the "last plot"
+  // the "last plot" is the plot to the left of the plot the player is currently on
+  public static bool ShouldSpawnAdultPlantOnLastIndex () {
     int _lastPlotIndex = LastPlotIndex;
     List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
     if (_lastPlotActions.Count > 1) {
@@ -66,8 +95,11 @@ public class PlantingMechanics {
     return false;
   }
 
+  // adds score and an action entry to the "current plot"
+  // the "current plot" is the plot the player is currently on
   public static int doPlayerAction (int PlayerActionValue) {
     int _currentPlotIndex = CurrentPlotIndex;
+    // if an action *has not* been done on the current index, for this loop
     if (!GameState.HasActionBeenDoneThisLoop[_currentPlotIndex]) {
       int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
       List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
@@ -77,12 +109,14 @@ public class PlantingMechanics {
       GameState.HasActionBeenDoneThisLoop[_currentPlotIndex] = true;
       Debug.Log ("player has chosen player action for " + actionScore);
       return actionScore;
+    // if an action *has* been done on the current index, for this loop
     } else {
       Debug.Log ("action already done for this plot");
       return 0;
     }
   }
 
+  // find the total score of all plots
   public static int TotalScore {
     get {
       int _totalScore = 0;
@@ -93,12 +127,26 @@ public class PlantingMechanics {
     }
   }
 
+  // find the score of the "last plot"
+  // the "last plot" is the plot to the left of the plot the player is currently on
   public static int LastPlotScore {
     get {
       return GameState.PlantScore[LastPlotIndex];
     }
   }
 
+  // find the data index of the "just added plot"
+  // the "just added plot" is the plot that was most recently added to on screen plots
+  public static int JustAddedPlotIndex {
+    get {
+      int _maxPlusRemoved = GameState.PlotsRemoved + GameState.TotalPlotCount;
+      int _justAddedPlotIndex = (_maxPlusRemoved - 1) % GameState.TotalPlotCount;
+      return _justAddedPlotIndex;
+    }
+  }
+
+  // find the data index of the "last plot"
+  // the "last plot" is the plot to the left of the plot the player is currently on
   public static int LastPlotIndex {
     get {
       int _lastPlotIndex = CurrentPlotIndex - 1;
@@ -109,6 +157,8 @@ public class PlantingMechanics {
     }
   }
 
+  // find the data index of the "current plot"
+  // the "current plot" is the plot the player is currently on
   public static int CurrentPlotIndex {
     get {
       int _plotMidpointOffset = (int) Math.Floor ((double) GameState.TotalPlotCount / 2);

@@ -17,9 +17,11 @@ public class OutOfBounds : MonoBehaviour {
     }
 
     private void OnTriggerExit (Collider other) {
-        Debug.Log ("hit");
         if (other.gameObject.tag == "Boundary")
         {
+            // TODO: re-add removing the clouds from the scene
+            //  and also make sure that you're removing both the cloud
+            //  amd the plot (possibly theyre in an array?)
             gameController = GameObject.FindGameObjectWithTag("GameController");
             gameController.GetComponent<ScrollScript> ().RemoveOffscreenPlot (gameObject);
         }

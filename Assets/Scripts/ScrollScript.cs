@@ -19,7 +19,7 @@ public class ScrollScript : MonoBehaviour {
     {
         PlantingMechanics.GenerateLevel();
         //Populate queue with starting plots
-        for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
+        for (int i = 0; i < GameState.TotalPlotCount; i++) {
             //Spawn in default area if first object
             if (i == 0)
             {
@@ -30,8 +30,6 @@ public class ScrollScript : MonoBehaviour {
                 SpawnNextPlot();
             }
         }
-
-        //PlantObject p = PlantingMechanics.plots[0];
     }
 
     void FixedUpdate () {
@@ -57,6 +55,14 @@ public class ScrollScript : MonoBehaviour {
         //Add next plot to onScreenPlot_
         GameState.onScreenPlot_.Enqueue(temp = Instantiate(plotPrefab, nextPos, Quaternion.identity));
 
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnJustAddedIndex()) {
+            // TODO Adina spawn a plant
+            Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
+        }
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex()) {
+            //Figure out what plant to spawn
+            //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
+        }
     }
 
     //Function to remove first element from queue since it's offscreen
@@ -66,22 +72,21 @@ public class ScrollScript : MonoBehaviour {
         SpawnNextPlot();
         PlantingMechanics.TileAdvance();
         GameState.onScreenPlot_.Dequeue();
-        if (PlantingMechanics.ShouldSpawnBabyPlant()) {
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnLastIndex()) {
             // TODO Adina spawn a plant
             Instantiate(babyPlantPrefab, LastPlot.transform.GetChild(0));
         }
-        if (PlantingMechanics.ShouldSpawnAdultPlant()) {
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnLastIndex()) {
             //TODO: Figure out what plant to spawn
             int score = PlantingMechanics.LastPlotScore;
-            if(score <= 0)
-            { 
-                
+            if (score <= 0)
+            {
+
             }
             else
             {
 
             }
-
             // TODO Adina spawn a plant
             //Instantiate(PlantList[plantnum], LastPlot.transform.GetChild(0));
         }

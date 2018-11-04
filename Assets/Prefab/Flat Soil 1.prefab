@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114018769914210922}
   m_Layer: 0
   m_Name: Flat Soil 1
-  m_TagString: Untagged
+  m_TagString: Plot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
