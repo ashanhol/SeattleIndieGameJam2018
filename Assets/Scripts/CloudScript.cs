@@ -17,33 +17,33 @@ public class CloudScript : MonoBehaviour
 
     void Start()
     {
-        puff = Instantiate(puff);
-        
+        // puff = Instantiate(puff);
+
     }
 
     void FixedUpdate()
     {
-        MoveOncomingCloudLeft();
+        // MoveOncomingCloudLeft();
     }
 
     //Move all clouds in onScreenCloud_
     void MoveOncomingCloudLeft()
     {
 
-            if (puff)
-            {
-                puff.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed);
-            }
-        
+            // if (puff)
+            // {
+            //     puff.transform.Translate(Vector3.left * Time.deltaTime * ScrollSpeed);
+            // }
+
     }
 
     //Function to spawn the next plot in the queue offscreen
     void SpawnNextCloud()
     {
         //Spawn where the last object ends if not first object
-        Vector3 nextPos = new Vector3((temp.transform.position.x + puff.GetComponentInChildren<Renderer>().bounds.extents.x * 2), temp.transform.position.y, temp.transform.position.z);
+        // Vector3 nextPos = new Vector3((temp.transform.position.x + puff.GetComponentInChildren<Renderer>().bounds.extents.x * 2), temp.transform.position.y, temp.transform.position.z);
 
-        temp = Instantiate(puff, nextPos, Quaternion.identity);
+        // temp = Instantiate(puff, nextPos, Quaternion.identity);
 
         //Add next plot to onScreenPlot_
         // onScreenCloud_.Enqueue(temp = Instantiate(puff, nextPos, Quaternion.identity));
@@ -54,8 +54,8 @@ public class CloudScript : MonoBehaviour
     //Should be called when cloud has hit offscreen boundry
     public void RemoveOffscreenCloud(GameObject toBeRemoved)
     {
-        Destroy(toBeRemoved);
-        SpawnNextCloud();
+        // Destroy(toBeRemoved);
+        // SpawnNextCloud();
         //onScreenCloud_.Dequeue();
     }
 
