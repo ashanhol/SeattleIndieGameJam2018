@@ -12,12 +12,9 @@ public class PlayerInput : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
 
-    private Text ScoreTextTopRight;
-
     // Use this for initialization
     void Start ()
     {
-        ScoreTextTopRight = GameObject.Find("ScoreText").GetComponentInChildren<Text>();
 	}
 
 	// Update is called once per frame
@@ -48,11 +45,12 @@ public class PlayerInput : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
         {
+            Text scoreTextTopRight = GameObject.Find("ScoreText").GetComponentInChildren<Text>();
             GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
             ScrollScript scrollScript = gameController.GetComponent<ScrollScript> ();
             int _actionScore = scrollScript.doPlayerActionOnCurrentPlot((int)pa);
             int _totalScore = PlantingMechanics.TotalScore;
-            ScoreTextTopRight.text = _totalScore.ToString();
+            scoreTextTopRight.text = _totalScore.ToString();
             scrollScript.CheckPlantGrowth ();
         }
     }
