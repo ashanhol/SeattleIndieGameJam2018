@@ -10,7 +10,7 @@ public class ScrollScript : MonoBehaviour {
     public GameObject babyPlantPrefab;
     public int ScrollSpeed = 15;
 
-    public GameObject StandInPlant;
+    public GameObject[] PlantList;
 
     //last object queued to calculate where next should spawn
     GameObject temp = null;
@@ -72,7 +72,7 @@ public class ScrollScript : MonoBehaviour {
         }
         if (PlantingMechanics.ShouldSpawnAdultPlant()) {
             // TODO Adina spawn a plant
-            Instantiate(StandInPlant, LastPlot.transform.GetChild(0));
+            //Instantiate(StandInPlant, LastPlot.transform.GetChild(0));
         }
     }
 
