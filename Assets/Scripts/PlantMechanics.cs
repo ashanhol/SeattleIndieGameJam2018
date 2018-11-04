@@ -113,13 +113,14 @@ public class PlantingMechanics {
     return _maxScore;
   }
 
-  // find the total score of all plots
+  // find the total score of all plots, plus the non plant related score 
   public static int TotalScore {
     get {
       int _totalScore = 0;
       foreach (int _score in GameState.PlantScore) {
         _totalScore += _score;
       }
+      _totalScore += GameState.PlayerScore;
       return _totalScore;
     }
   }

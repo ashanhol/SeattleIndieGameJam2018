@@ -86,6 +86,9 @@ public class PlayerInput : MonoBehaviour
 
     PlayerAction CycleThroughActions(string cycleDirection, PlayerAction CurPa)
     {
+        GameState.PlayerScore += 10;
+        //TODO: VISUAL UI OF +10 SCORE ABOVE FARMER
+
         switch (CurPa)
         {
             case PlayerAction.Seed:

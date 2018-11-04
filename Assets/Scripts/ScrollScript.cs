@@ -12,7 +12,7 @@ public class ScrollScript : MonoBehaviour {
 
     public GameObject plotPrefab;
     public GameObject babyPlantPrefab;
-    public int ScrollSpeed = 15;
+    public int ScrollSpeed;// = 15;
 
     public GameObject[] PlantList;
 
