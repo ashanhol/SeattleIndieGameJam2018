@@ -63,7 +63,9 @@ public class ScrollScript : MonoBehaviour {
         SpawnNextPlot();
         PlantingMechanics.TileAdvance();
         GameState.onScreenPlot_.Dequeue();
-
+        if (PlantingMechanics.ShouldSpawnPlant()) {
+            // TODO Adina spawn a plant
+        }
     }
 
     public static GameObject LastPlot {

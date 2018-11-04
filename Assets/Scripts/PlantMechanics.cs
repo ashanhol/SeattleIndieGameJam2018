@@ -33,6 +33,10 @@ public class PlantingMechanics {
     }
   }
 
+  public static bool ShouldSpawnPlant() {
+    return true;
+  }
+
   public static int doPlayerAction (int PlayerActionValue) {
     int actionScore = PlayerActionValue * GameState.LapsRunThroughLoop;
     GameState.PlantScore[CurrentPlotIndex] += actionScore;
