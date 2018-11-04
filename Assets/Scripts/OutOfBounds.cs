@@ -18,7 +18,9 @@ public class OutOfBounds : MonoBehaviour {
 
     private void OnTriggerExit (Collider other) {
         Debug.Log ("hit");
-        if (other.gameObject.tag == "Boundary") {
+        if (other.gameObject.tag == "Boundary")
+        {
+            gameController = GameObject.FindGameObjectWithTag("GameController");
             gameController.GetComponent<ScrollScript> ().RemoveOffscreenPlot (gameObject);
         }
 
