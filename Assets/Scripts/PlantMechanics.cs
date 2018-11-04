@@ -33,8 +33,12 @@ public class PlantingMechanics {
     }
   }
 
-  public static bool ShouldSpawnPlant() {
+  public static bool ShouldSpawnBabyPlant() {
     return true;
+  }
+
+  public static bool ShouldSpawnAdultPlant() {
+    return false;
   }
 
   public static int doPlayerAction (int PlayerActionValue) {

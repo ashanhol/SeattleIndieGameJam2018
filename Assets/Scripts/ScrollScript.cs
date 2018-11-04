@@ -63,7 +63,10 @@ public class ScrollScript : MonoBehaviour {
         SpawnNextPlot();
         PlantingMechanics.TileAdvance();
         GameState.onScreenPlot_.Dequeue();
-        if (PlantingMechanics.ShouldSpawnPlant()) {
+        if (PlantingMechanics.ShouldSpawnBabyPlant()) {
+            // TODO Adina spawn a plant
+        }
+        if (PlantingMechanics.ShouldSpawnAdultPlant()) {
             // TODO Adina spawn a plant
         }
     }
