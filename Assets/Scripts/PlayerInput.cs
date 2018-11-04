@@ -48,11 +48,12 @@ public class PlayerInput : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
         {
-            int _actionScore = PlantingMechanics.doPlayerAction((int)pa);
+            GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
+            ScrollScript scrollScript = gameController.GetComponent<ScrollScript> ();
+            int _actionScore = scrollScript.doPlayerActionOnCurrentPlot((int)pa);
             int _totalScore = PlantingMechanics.TotalScore;
             ScoreTextTopRight.text = _totalScore.ToString();
-            gameController = GameObject.FindGameObjectWithTag("GameController");
-            gameController.GetComponent<ScrollScript> ().CheckPlantGrowth ();
+            scrollScript.CheckPlantGrowth ();
         }
     }
 

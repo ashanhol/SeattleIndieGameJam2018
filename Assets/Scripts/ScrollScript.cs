@@ -80,41 +80,34 @@ public class ScrollScript : MonoBehaviour {
         GameState.onScreenPlotBackendIndex_.Dequeue ();
     }
 
-    // check if a plant should be grown on the current plot
+    public int doPlayerActionOnCurrentPlot (int PlayerActionValue) {
+        PlotData plotData = CurrentPlot.GetComponentInChildren(typeof(PlotData)) as PlotData;
+        int BackendPlotIndex = plotData.BackendPlotIndex;
+        return PlantingMechanics.doPlayerActionOnIndex(PlayerActionValue, BackendPlotIndex);
+    }
+
+    // check if a plant should be spawned on "the current plot"
     public void CheckPlantGrowth () {
-        if (PlantingMechanics.ShouldSpawnBabyPlantOnCurrentIndex ()) {
-            Instantiate (babyPlantPrefab, CurrentPlot.transform.GetChild (0));
-        }
-        if (PlantingMechanics.ShouldSpawnAdultPlantOnCurrentIndex ()) {
-            int _score = PlantingMechanics.CurrentPlotScore;
-            int currentPlantnum = PlantingMechanics.GetPlantNumForScore(_score, PlantList);
-            Instantiate(PlantList[currentPlantnum], LastAddedPlot.transform.GetChild(0));
-        }
+        _CheckIfPlantShouldBeSpawned(CurrentPlot);
     }
 
-    // check if a plant should be re-rendered (because it was grown last loop) on a plot
+    // check if a plant should be spawned on "a newly rendered plot"
     void CheckPlantRerendering () {
-        if (PlantingMechanics.ShouldSpawnBabyPlantOnJustAddedIndex ()) {
-            Instantiate(babyPlantPrefab, LastAddedPlot.transform.GetChild(0));
-        }
-        if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex ()) {
-            int _score = PlantingMechanics.JustAddedPlotScore;
-            int currentPlantnum = PlantingMechanics.GetPlantNumForScore(_score, PlantList);
-            Instantiate(PlantList[currentPlantnum], LastAddedPlot.transform.GetChild(0));
-        }
+        _CheckIfPlantShouldBeSpawned(LastAddedPlot);
     }
 
-<<<<<<< Updated upstream
-=======
-    // given a score, return a plant number
-    public int GetPlantNumForScore (int score) {
-        int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
-        int currentPlantnum = 0;
-        if (score > 0)
-        {
-            currentPlantnum = (int) Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
+    // check if a plant should be spawned on "a given plot"
+    private void _CheckIfPlantShouldBeSpawned(GameObject plot) {
+        PlotData plotData = plot.GetComponentInChildren(typeof(PlotData)) as PlotData;
+        int BackendPlotIndex = plotData.BackendPlotIndex;
+        if (PlantingMechanics.ShouldSpawnBabyPlantOnIndex(BackendPlotIndex)) {
+            Instantiate(babyPlantPrefab, plot.transform.GetChild(0));
         }
-        return currentPlantnum;
+        if (PlantingMechanics.ShouldSpawnAdultPlantOnIndex(BackendPlotIndex)) {
+            int _score = PlantingMechanics.PlotScoreOnIndex(BackendPlotIndex);
+            int currentPlantnum = PlantingMechanics.GetPlantNumForScore(_score, PlantList);
+            Instantiate(PlantList[currentPlantnum], plot.transform.GetChild(0));
+        }
     }
 
     // adds a new plot and plot index to the backend data
@@ -126,7 +119,6 @@ public class ScrollScript : MonoBehaviour {
         GameState.onScreenPlotBackendIndex_.Enqueue(_thisBackendPlotIndex);
     }
 
->>>>>>> Stashed changes
     static GameObject LastAddedPlot {
         get {
             GameObject[] _queueArray = GameState.onScreenPlot_.ToArray();

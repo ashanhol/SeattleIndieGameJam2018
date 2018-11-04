@@ -58,15 +58,22 @@ public class PlantingMechanics {
     }
   }
 
-  public static bool ShouldSpawnBabyPlant(int backendPlotIndex) {
+  // get the score of a plot for a given plot index
+  public static int PlotScoreOnIndex(int backendPlotIndex) {
+    return GameState.PlantScore[backendPlotIndex];
+  }
+
+  // should we spawn a baby plant for the given plot index
+  public static bool ShouldSpawnBabyPlantOnIndex(int backendPlotIndex) {
     List<int> _plotActions = GameState.PlantActions[backendPlotIndex];
     if (_plotActions.Count == 1) {
       return true;
     }
     return false;
   }
-f
-  public static bool ShouldSpawnAdultPlant(int backendPlotIndex) {
+
+  // should we spawn an adult plant for the given plot index
+  public static bool ShouldSpawnAdultPlantOnIndex(int backendPlotIndex) {
     List<int> _plotActions = GameState.PlantActions[backendPlotIndex];
     if (_plotActions.Count >= ActionsRequiredToGrowToAdulthood) {
       return true;
@@ -74,60 +81,19 @@ f
     return false;
   }
 
-  // should we spawn a baby plan on the "just added plot"
-  // the "just added plot" is the plot that was most recently added to on screen plots
-  public static bool ShouldSpawnBabyPlantOnJustAddedIndex() {
-    int _justAddedPlotIndex = JustAddedPlotIndex;
-    List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
-    if (_justAddedPlotActions.Count == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  // should we spawn an adut plan on the "just added plot"
-  // the "just added plot" is the plot that was most recently added to on screen plots
-  public static bool ShouldSpawnAdultPlantOnJustAddedIndex() {
-    int _justAddedPlotIndex = JustAddedPlotIndex;
-    List<int> _justAddedPlotActions = GameState.PlantActions[_justAddedPlotIndex];
-    if (_justAddedPlotActions.Count >= ActionsRequiredToGrowToAdulthood) {
-      return true;
-    }
-    return false;
-  }
-
-  public static bool ShouldSpawnBabyPlantOnCurrentIndex () {
-    int _currentPlotIndex = CurrentPlotIndex;
-    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
-    if (_currentPlotActions.Count == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  public static bool ShouldSpawnAdultPlantOnCurrentIndex () {
-    int _currentPlotIndex = CurrentPlotIndex;
-    List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
-    if (_currentPlotActions.Count >= ActionsRequiredToGrowToAdulthood) {
-      return true;
-    }
-    return false;
-  }
-
   // adds score and an action entry to the "current plot"
   // the "current plot" is the plot the player is currently on
-  public static int doPlayerAction (int PlayerActionValue) {
-    int _currentPlotIndex = CurrentPlotIndex;
+  public static int doPlayerActionOnIndex (int PlayerActionValue, int backendPlotIndex) {
     // if an action *has not* been done on the current index, during this loop
-    if (!GameState.HasActionBeenDoneThisLoop[_currentPlotIndex]) {
+    if (!GameState.HasActionBeenDoneThisLoop[backendPlotIndex]) {
       // update actions
-      List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
+      List<int> _currentPlotActions = GameState.PlantActions[backendPlotIndex];
       _currentPlotActions.Add (PlayerActionValue);
-      GameState.PlantActions[_currentPlotIndex] = _currentPlotActions;
+      GameState.PlantActions[backendPlotIndex] = _currentPlotActions;
       // update score
       int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
-      GameState.PlantScore[_currentPlotIndex] += actionScore;
-      GameState.HasActionBeenDoneThisLoop[_currentPlotIndex] = true;
+      GameState.PlantScore[backendPlotIndex] += actionScore;
+      GameState.HasActionBeenDoneThisLoop[backendPlotIndex] = true;
       Debug.Log ("player has chosen player action for " + actionScore);
       return actionScore;
     // if an action *has* been done on the current index, during this loop
@@ -154,63 +120,6 @@ f
         _totalScore += _score;
       }
       return _totalScore;
-    }
-  }
-
-  // find the score of the "current plot"
-  // the "current plot" is the plot the player is currently on
-  public static int CurrentPlotScore {
-    get {
-      return GameState.PlantScore[CurrentPlotIndex];
-    }
-  }
-
-  // find the score of the "just added plot"
-  // the "just added plot" is the plot that was most recently added to on screen plots
-  public static int JustAddedPlotScore {
-    get {
-      return GameState.PlantScore[JustAddedPlotIndex];
-    }
-  }
-
-  // find the score of the "last plot"
-  // the "last plot" is the plot to the left of the plot the player is currently on
-  public static int LastPlotScore {
-    get {
-      return GameState.PlantScore[LastPlotIndex];
-    }
-  }
-
-  // find the data index of the "just added plot"
-  // the "just added plot" is the plot that was most recently added to on screen plots
-  public static int JustAddedPlotIndex {
-    get {
-      int _maxPlusRemoved = GameState.PlotsRemoved + GameState.TotalPlotCount;
-      int _justAddedPlotIndex = (_maxPlusRemoved - 1) % GameState.TotalPlotCount;
-      return _justAddedPlotIndex;
-    }
-  }
-
-  // find the data index of the "last plot"
-  // the "last plot" is the plot to the left of the plot the player is currently on
-  public static int LastPlotIndex {
-    get {
-      int _lastPlotIndex = CurrentPlotIndex - 1;
-      if (_lastPlotIndex == -1) {
-        _lastPlotIndex = GameState.TotalPlotCount ;
-      }
-      return _lastPlotIndex;
-    }
-  }
-
-  // find the data index of the "current plot"
-  // the "current plot" is the plot the player is currently on
-  public static int CurrentPlotIndex {
-    get {
-      int _plotMidpointOffset = (int) Math.Floor ((double) GameState.TotalPlotCount / 2);
-      int _midpointPlusRemoved = GameState.PlotsRemoved + _plotMidpointOffset;
-      int _currentPlotIndex = _midpointPlusRemoved % GameState.TotalPlotCount;
-      return _currentPlotIndex;
     }
   }
 
