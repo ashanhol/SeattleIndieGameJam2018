@@ -67,7 +67,7 @@ public class PlantingMechanics {
   // should we spawn a baby plant for the given plot index
   public static bool ShouldSpawnBabyPlantOnIndex(int backendPlotIndex) {
     List<int> _plotActions = GameState.PlantActions[backendPlotIndex];
-    if (_plotActions.Count == 1) {
+    if (_plotActions.Count != 0 && _plotActions.Count < ActionsRequiredToGrowToAdulthood) {
       return true;
     }
     return false;
