@@ -100,13 +100,16 @@ public class ScrollScript : MonoBehaviour {
     private void _CheckIfPlantShouldBeSpawned(GameObject plot) {
         PlotData plotData = plot.GetComponentInChildren(typeof(PlotData)) as PlotData;
         int BackendPlotIndex = plotData.BackendPlotIndex;
+        Transform plantLocation = plot.transform.GetChild(0);
         if (PlantingMechanics.ShouldSpawnBabyPlantOnIndex(BackendPlotIndex)) {
-            Instantiate(babyPlantPrefab, plot.transform.GetChild(0));
+            GameObject plantToSpawn = babyPlantPrefab;
+            Instantiate(plantToSpawn, plantLocation);
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnIndex(BackendPlotIndex)) {
             int _score = PlantingMechanics.PlotScoreOnIndex(BackendPlotIndex);
             int currentPlantnum = PlantingMechanics.GetPlantNumForScore(_score, PlantList);
-            Instantiate(PlantList[currentPlantnum], plot.transform.GetChild(0));
+            GameObject plantToSpawn = PlantList[currentPlantnum];
+            Instantiate(plantToSpawn, plantLocation);
         }
     }
 
