@@ -10,11 +10,12 @@ public enum PlayerAction : int {
 
 //Should only have one of these classes initalized at once
 public class PlantingMechanics {
+  public static int LoopPlotIncreaseCount = 4;
 
   public static PlantObject[] GenerateLevel () {
     GameState.Plots = new PlantObject[GameState.TotalPlotCount];
     GameState.TotalPlotCountLastRound = GameState.TotalPlotCount;
-    GameState.TotalPlotCount = GameState.TotalPlotCount + 4;
+    GameState.TotalPlotCount = GameState.TotalPlotCount + LoopPlotIncreaseCount;
     GameState.LapsRunThroughLoop = 0;
     return GameState.Plots;
   }
