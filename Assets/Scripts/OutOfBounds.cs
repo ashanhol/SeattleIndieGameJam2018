@@ -5,6 +5,13 @@ using UnityEngine;
 public class OutOfBounds : MonoBehaviour {
 
     public GameObject gameController;
+    private ScrollScript scrollScript;
+
+    // Awake is called when the script instance is being loaded.
+    void Awake()
+    {
+        scrollScript = gameController.GetComponent<ScrollScript> ();
+    }
 
     // Use this for initialization
     void Start () {
@@ -21,10 +28,8 @@ public class OutOfBounds : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("PlayerCollide");
-            if(gameController.GetComponent<ScrollScript>().CurrentPlot == gameObject)
-            {
-                Debug.Log(gameObject.GetComponentInChildren<Light>().enabled = true);
-            }
+            Debug.Log(gameObject.GetComponentInChildren<Light>().enabled = true);
+            scrollScript.SetGivenPlotAsCurrentPlot(gameObject);
         }
     }
 
