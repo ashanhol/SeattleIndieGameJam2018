@@ -139,6 +139,8 @@ public class PlantingMechanics {
     }
   }
 
+  // find the score of the "current plot"
+  // the "current plot" is the plot the player is currently on
   public static int CurrentPlotScore {
     get {
       return GameState.PlantScore[CurrentPlotIndex];
