@@ -73,7 +73,7 @@ public class ScrollScript : MonoBehaviour {
             Instantiate (babyPlantPrefab, CurrentPlot.transform.GetChild (0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnCurrentIndex ()) {
-            int score = PlantingMechanics.LastPlotScore;
+            int score = PlantingMechanics.CurrentPlotScore;
             if (score <= 0)
             {
 
@@ -93,7 +93,7 @@ public class ScrollScript : MonoBehaviour {
             Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex ()) {
-            int score = PlantingMechanics.LastPlotScore;
+            int score = PlantingMechanics.JustAddedPlotScore;
             if (score <= 0)
             {
 
