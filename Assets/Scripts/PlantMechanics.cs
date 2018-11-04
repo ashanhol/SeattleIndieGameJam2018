@@ -36,6 +36,7 @@ public class PlantingMechanics {
     GameState.PlotsRemoved = 0;
     GameState.LapsRunThroughLoop = 0;
     GameState.onScreenPlot_ = new Queue<GameObject> ();
+    GameState.onScreenPlotBackendIndex_ = new Queue<int> ();
     GameState.MaxLoops = 3;
     MaximumPossibleScoreForGrownPlant = GetMaximumPossibleScoreForGrownPlant();
   }
