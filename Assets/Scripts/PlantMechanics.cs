@@ -27,7 +27,7 @@ public class PlantingMechanics {
     GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat (false, GameState.TotalPlotCount).ToList ();
     GameState.PlantScore = Enumerable.Repeat (0, GameState.TotalPlotCount).ToList ();
     GameState.PlantActions = new Dictionary<int, List<int>> ();
-    for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
+    for (int i = 0; i < GameState.TotalPlotCount; i++) {
       GameState.PlantActions.Add (i, new List<int> (new int[0]));
     }
     GameState.PlotsRemoved = 0;
