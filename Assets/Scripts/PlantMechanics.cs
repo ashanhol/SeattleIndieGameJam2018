@@ -19,6 +19,9 @@ public class PlantingMechanics {
   // How many actions do you have to do on a plant, before it grows to adulthood
   public static int ActionsRequiredToGrowToAdulthood = 3;
 
+  // the maximium score you can have for a plant, as of it growing into an adult
+  public static int MaximumPossibleScoreForGrownPlant = 0;
+
   // setup all the initial state required to generate a new level
   // this mostly includes generating empty lists, and setting attributes to zero
   public static void GenerateLevel () {
@@ -34,6 +37,7 @@ public class PlantingMechanics {
     GameState.LapsRunThroughLoop = 0;
     GameState.onScreenPlot_ = new Queue<GameObject> ();
     GameState.MaxLoops = 3;
+    MaximumPossibleScoreForGrownPlant = GetMaximumPossibleScoreForGrownPlant();
   }
 
   // called whenever a tile leaves the scene (which is also when tiles are added)
@@ -118,14 +122,12 @@ public class PlantingMechanics {
   }
 
   // the maximium score you can have for a plant, as of it growing into an adult
-  public static int MaximumPossibleScoreForGrownPlant {
-    get {
-      int _maxScore = 0;
-      for (int i = 0; i < GameState.MaxLoops; i++) {
-        _maxScore += (int)PlayerAction.Seed * (i + 1);
-      }
-      return _maxScore;
+  private static int GetMaximumPossibleScoreForGrownPlant() {
+    int _maxScore = 0;
+    for (int i = 0; i < GameState.MaxLoops; i++) {
+      _maxScore += (int)PlayerAction.Seed * (i + 1);
     }
+    return _maxScore;
   }
 
   // find the total score of all plots
@@ -144,6 +146,14 @@ public class PlantingMechanics {
   public static int CurrentPlotScore {
     get {
       return GameState.PlantScore[CurrentPlotIndex];
+    }
+  }
+
+  // find the score of the "just added plot"
+  // the "just added plot" is the plot that was most recently added to on screen plots
+  public static int JustAddedPlotScore {
+    get {
+      return GameState.PlantScore[JustAddedPlotIndex];
     }
   }
 
