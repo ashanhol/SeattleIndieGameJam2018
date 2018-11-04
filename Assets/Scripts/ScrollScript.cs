@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class ScrollScript : MonoBehaviour {
@@ -60,6 +62,14 @@ public class ScrollScript : MonoBehaviour {
         Destroy (toBeRemoved);
         SpawnNextPlot();
         PlantingMechanics.TileAdvance();
+    }
+
+    public static GameObject LastPlot {
+        get {
+            int _previousPlotIndex = (int)Math.Floor((double) GameState.onScreenPlot_.Count / 2) - 1;
+            GameObject previousPlot = GameState.onScreenPlot_.ElementAt(_previousPlotIndex);
+            return previousPlot;
+        }
     }
 
 }
