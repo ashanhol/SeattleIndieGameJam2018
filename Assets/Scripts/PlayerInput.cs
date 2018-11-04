@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class PlayerInput : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
 
+    private Text ScoreTextTopRight;
+
     // Use this for initialization
     void Start ()
     {
-
+        ScoreTextTopRight = GameObject.Find("ScoreText").GetComponentInChildren<Text>();
 	}
 
 	// Update is called once per frame
@@ -44,7 +47,9 @@ public class PlayerInput : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
         {
-            PlantingMechanics.doPlayerAction((int)pa);
+            int _actionScore = PlantingMechanics.doPlayerAction((int)pa);
+            int _totalScore = PlantingMechanics.TotalScore;
+            ScoreTextTopRight.text = _totalScore.ToString();
             gameController = GameObject.FindGameObjectWithTag("GameController");
             gameController.GetComponent<ScrollScript> ().CheckPlantGrowth ();
         }
