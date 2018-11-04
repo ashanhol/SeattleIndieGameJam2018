@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum PlayerAction : int {
   Seed = 20,
@@ -11,6 +12,7 @@ public enum PlayerAction : int {
 
 //Should only have one of these classes initalized at once
 public class PlantingMechanics {
+  //How many plots we're increasing per level
   public static int LoopPlotIncreaseCount = 4;
 
   public static void GenerateLevel () {
@@ -21,17 +23,24 @@ public class PlantingMechanics {
     GameState.LapsRunThroughLoop = 0;
     GameState.PlotsRemovedAtLastLap = 0;
     GameState.onScreenPlot_ = new Queue<GameObject> ();
+    GameState.MaxLoops = 3;
   }
 
-  public static void TileAdvance() {
+    public static void TileAdvance() {
     ++GameState.PlotsRemoved;
 
     int _plotsToAdvanceLoop = GameState.TotalPlotCount * (GameState.LapsRunThroughLoop + 1);
     if (GameState.PlotsRemoved >= _plotsToAdvanceLoop) {
-      ++GameState.LapsRunThroughLoop;
       GameState.PlotsRemovedAtLastLap = GameState.PlotsRemoved;
+      ++GameState.LapsRunThroughLoop;
+      if(GameState.LapsRunThroughLoop> GameState.MaxLoops)
+      {
+         //TODO: END GAME
+         SceneManager.LoadScene(2);
+      }
+
+     }
     }
-  }
 
   public static bool ShouldSpawnBabyPlant() {
     int _lastPlotIndex = LastPlotIndex;
