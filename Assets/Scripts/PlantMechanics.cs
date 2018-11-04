@@ -34,10 +34,16 @@ public class PlantingMechanics {
   }
 
   public static bool ShouldSpawnBabyPlant() {
-    return true;
+    if (GameState.PlantActions[CurrentPlotIndex].Count == 1) {
+      return true;
+    }
+    return false;
   }
 
   public static bool ShouldSpawnAdultPlant() {
+    if (GameState.PlantActions[CurrentPlotIndex].Count > 1) {
+      return true;
+    }
     return false;
   }
 
