@@ -73,6 +73,15 @@ public class ScrollScript : MonoBehaviour {
             Instantiate (babyPlantPrefab, CurrentPlot.transform.GetChild (0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnCurrentIndex ()) {
+            int score = PlantingMechanics.LastPlotScore;
+            if (score <= 0)
+            {
+
+            }
+            else
+            {
+
+            }
             //Figure out what plant to spawn
             // Instantiate(PlantList[plantnum], CurrentPlot.transform.GetChild(0));
         }
@@ -81,10 +90,18 @@ public class ScrollScript : MonoBehaviour {
     // check if a plant should be re-rendered (because it was grown last loop) on a plot
     void CheckPlantRerendering () {
         if (PlantingMechanics.ShouldSpawnBabyPlantOnJustAddedIndex ()) {
-            // TODO Adina spawn a plant
             Instantiate(babyPlantPrefab, temp.transform.GetChild(0));
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex ()) {
+            int score = PlantingMechanics.LastPlotScore;
+            if (score <= 0)
+            {
+
+            }
+            else
+            {
+
+            }
             //Figure out what plant to spawn
             // Instantiate(PlantList[plantnum], temp.transform.GetChild(0));
         }
