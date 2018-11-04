@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -256,3 +256,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1701989206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701989207}
+  - component: {fileID: 1701989208}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1701989207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701989206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1701989208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701989206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09a2d50406135040ab7a0a3f4799865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlantList:
+  - {fileID: 1794769607483076, guid: 57646057b7f672540bf256a2d1c15f90, type: 2}
+  - {fileID: 1042809102324748, guid: f6dbf714fc3ca934aa21cd769bcd4f0e, type: 2}
+  - {fileID: 1703187873016976, guid: 4ac45f880ec92dc4a984672dd58200e5, type: 2}
+  - {fileID: 1077860859072704, guid: 0ad5e94a0cc915f4ea32482dcafbb9f0, type: 2}
+  - {fileID: 1820222678081842, guid: 54f3fbcbddda43e4f800619c1c074264, type: 2}
+  - {fileID: 1400412468664954, guid: faa858a4350a7174696dfd7c5151fe4a, type: 2}
+  - {fileID: 1361145716728904, guid: aa76cb02f81970b42b1fa603fdb9bdc0, type: 2}
+  - {fileID: 1608821566813722, guid: 3e2126f088ba1324899349214bc9b542, type: 2}
+  - {fileID: 1220896636619498, guid: 8c4daf0cdb9c7224b8bc3a825540e2c7, type: 2}
+  - {fileID: 1584080391395630, guid: f9b8a8beaf20609449bc707c2cb40a70, type: 2}
+  - {fileID: 1749886591308044, guid: ae680080d4b9a824ea029ec24a9e4ae9, type: 2}

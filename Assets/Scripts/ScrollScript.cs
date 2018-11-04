@@ -77,7 +77,7 @@ public class ScrollScript : MonoBehaviour {
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnCurrentIndex ()) {
             int _score = PlantingMechanics.CurrentPlotScore;
-            int currentPlantnum = GetPlantNumForScore(_score);
+            int currentPlantnum = PlantingMechanics.GetPlantNumForScore(_score, PlantList);
             Instantiate(PlantList[currentPlantnum], LastAddedPlot.transform.GetChild(0));
         }
     }
@@ -89,20 +89,9 @@ public class ScrollScript : MonoBehaviour {
         }
         if (PlantingMechanics.ShouldSpawnAdultPlantOnJustAddedIndex ()) {
             int _score = PlantingMechanics.JustAddedPlotScore;
-            int currentPlantnum = GetPlantNumForScore(_score);
+            int currentPlantnum = PlantingMechanics.GetPlantNumForScore(_score, PlantList);
             Instantiate(PlantList[currentPlantnum], LastAddedPlot.transform.GetChild(0));
         }
-    }
-
-    // given a score, return a plant number
-    public int GetPlantNumForScore (int score) {
-        int maxScore = PlantingMechanics.MaximumPossibleScoreForGrownPlant;
-        int currentPlantnum = 0;
-        if (score > 0)
-        {
-            currentPlantnum = (int) Math.Floor((double)(PlantList.Count() - 1) * score / maxScore);
-        }
-        return currentPlantnum;
     }
 
     static GameObject LastAddedPlot {
