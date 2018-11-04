@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,11 +19,11 @@ public class PlantingMechanics {
   public static void GenerateLevel () {
     GameState.TotalPlotCountLastRound = GameState.TotalPlotCount;
     GameState.TotalPlotCount = GameState.TotalPlotCount + LoopPlotIncreaseCount;
-    GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat(false, GameState.TotalPlotCount).ToList();
-    GameState.PlantScore = Enumerable.Repeat(0, GameState.TotalPlotCount).ToList();
-    GameState.PlantActions = new Dictionary<int, List<int>>();
+    GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat (false, GameState.TotalPlotCount).ToList ();
+    GameState.PlantScore = Enumerable.Repeat (0, GameState.TotalPlotCount).ToList ();
+    GameState.PlantActions = new Dictionary<int, List<int>> ();
     for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
-      GameState.PlantActions.Add(i, new List<int>(new int[0]));
+      GameState.PlantActions.Add (i, new List<int> (new int[0]));
     }
     GameState.PlotsRemoved = 0;
     GameState.LapsRunThroughLoop = 0;
@@ -32,24 +32,23 @@ public class PlantingMechanics {
     GameState.MaxLoops = 3;
   }
 
-    public static void TileAdvance() {
+  public static void TileAdvance () {
     ++GameState.PlotsRemoved;
 
     int _plotsToAdvanceLoop = GameState.TotalPlotCount * (GameState.LapsRunThroughLoop + 1);
     if (GameState.PlotsRemoved >= _plotsToAdvanceLoop) {
-      GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat(false, GameState.TotalPlotCount).ToList();
+      GameState.HasActionBeenDoneThisLoop = Enumerable.Repeat (false, GameState.TotalPlotCount).ToList ();
       GameState.PlotsRemovedAtLastLap = GameState.PlotsRemoved;
       ++GameState.LapsRunThroughLoop;
-      if(GameState.LapsRunThroughLoop> GameState.MaxLoops)
-      {
-         //TODO: END GAME
-         SceneManager.LoadScene(2);
+      if (GameState.LapsRunThroughLoop > GameState.MaxLoops) {
+        //TODO: END GAME
+        SceneManager.LoadScene (2);
       }
 
-     }
     }
+  }
 
-  public static bool ShouldSpawnBabyPlant() {
+  public static bool ShouldSpawnBabyPlant () {
     int _lastPlotIndex = LastPlotIndex;
     List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
     if (_lastPlotActions.Count == 1) {
@@ -58,7 +57,7 @@ public class PlantingMechanics {
     return false;
   }
 
-  public static bool ShouldSpawnAdultPlant() {
+  public static bool ShouldSpawnAdultPlant () {
     int _lastPlotIndex = LastPlotIndex;
     List<int> _lastPlotActions = GameState.PlantActions[_lastPlotIndex];
     if (_lastPlotActions.Count > 1) {
@@ -72,15 +71,14 @@ public class PlantingMechanics {
     if (!GameState.HasActionBeenDoneThisLoop[_currentPlotIndex]) {
       int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
       List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
-      _currentPlotActions.Add(PlayerActionValue);
+      _currentPlotActions.Add (PlayerActionValue);
       GameState.PlantActions[_currentPlotIndex] = _currentPlotActions;
       GameState.PlantScore[_currentPlotIndex] += actionScore;
       GameState.HasActionBeenDoneThisLoop[_currentPlotIndex] = true;
-      Debug.Log("player has chosen player action for " + actionScore);
+      Debug.Log ("player has chosen player action for " + actionScore);
       return actionScore;
-    }
-    else {
-      Debug.Log("action already done for this plot");
+    } else {
+      Debug.Log ("action already done for this plot");
       return 0;
     }
   }
@@ -113,7 +111,7 @@ public class PlantingMechanics {
 
   public static int CurrentPlotIndex {
     get {
-      int _plotMidpointOffset = (int)Math.Floor((double) GameState.TotalPlotCount / 2);
+      int _plotMidpointOffset = (int) Math.Floor ((double) GameState.TotalPlotCount / 2);
       int _midpointPlusRemoved = GameState.PlotsRemoved + _plotMidpointOffset;
       int _currentPlotIndex = _midpointPlusRemoved % GameState.TotalPlotCount;
       return _currentPlotIndex;
