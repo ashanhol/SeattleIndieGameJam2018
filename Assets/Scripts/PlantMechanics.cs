@@ -14,7 +14,7 @@ public enum PlayerAction : int {
 //Should only have one of these classes initalized at once
 public class PlantingMechanics {
   //How many plots we're increasing per level
-  public static int LoopPlotIncreaseCount = 4;
+  public static int LoopPlotIncreaseCount = 5;
 
   // setup all the initial state required to generate a new level
   // this mostly includes generating empty lists, and setting attributes to zero

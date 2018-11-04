@@ -19,7 +19,7 @@ public class ScrollScript : MonoBehaviour {
     {
         PlantingMechanics.GenerateLevel();
         //Populate queue with starting plots
-        for (int i = 0; i < GameState.TotalPlotCount + 1; i++) {
+        for (int i = 0; i < GameState.TotalPlotCount; i++) {
             //Spawn in default area if first object
             if (i == 0)
             {
