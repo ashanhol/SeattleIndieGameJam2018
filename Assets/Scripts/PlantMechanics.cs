@@ -125,6 +125,15 @@ public class PlantingMechanics {
     }
   }
 
+  public static int CurrentIndex {
+    get {
+      return GameState.currentClosestPlotIndex;
+    }
+    set {
+      GameState.currentClosestPlotIndex = value;
+    }
+  }
+
   // given a score, return a plant number
   public static int GetPlantNumForScore(int score, GameObject[] PlantList)
   {
