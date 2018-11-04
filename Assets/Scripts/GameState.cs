@@ -16,6 +16,8 @@ public class GameState {
   public static Queue<GameObject> onScreenPlot_ { get; set; }
   // a mapping for pointing the plot visual element to the backend data
   public static Queue<int> onScreenPlotBackendIndex_ { get; set; }
+  // the plot index the player is currently closest to
+  public static int currentClosestPlotIndex { get; set; }
 
   //Maximum number of loops this game is gonna run through
   public static int MaxLoops { get; set; }
