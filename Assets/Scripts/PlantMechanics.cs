@@ -48,7 +48,7 @@ public class PlantingMechanics {
   }
 
   public static int doPlayerAction (int PlayerActionValue) {
-    int actionScore = PlayerActionValue * GameState.LapsRunThroughLoop;
+    int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
     GameState.PlantScore[CurrentPlotIndex] += actionScore;
     Debug.Log("player has chosen player action for " + actionScore);
     return actionScore;
