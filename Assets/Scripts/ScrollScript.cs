@@ -59,8 +59,7 @@ public class ScrollScript : MonoBehaviour {
     public void RemoveOffscreenPlot (GameObject toBeRemoved) {
         Destroy (toBeRemoved);
         SpawnNextPlot();
-        ++GameState.PlotsRemoved;
-        PlantingMechanics.CheckAdvanceLoop();
+        PlantingMechanics.TileAdvance();
     }
 
 }

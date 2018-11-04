@@ -23,7 +23,9 @@ public class PlantingMechanics {
     GameState.onScreenPlot_ = new Queue<GameObject> ();
   }
 
-  public static void CheckAdvanceLoop () {
+  public static void TileAdvance() {
+    ++GameState.PlotsRemoved;
+
     int _plotsToAdvanceLoop = GameState.TotalPlotCount * (GameState.LapsRunThroughLoop + 1);
     if (GameState.PlotsRemoved >= _plotsToAdvanceLoop) {
       ++GameState.LapsRunThroughLoop;
@@ -34,6 +36,7 @@ public class PlantingMechanics {
   public static int doPlayerAction (int PlayerActionValue) {
     int actionScore = PlayerActionValue * GameState.LapsRunThroughLoop;
     GameState.PlantScore[CurrentPlotIndex] += actionScore;
+    Debug.Log("player has chosen player action for " + actionScore);
     return actionScore;
   }
 
