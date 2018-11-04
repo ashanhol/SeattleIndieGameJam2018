@@ -98,20 +98,33 @@ public class PlantingMechanics {
   // the "current plot" is the plot the player is currently on
   public static int doPlayerAction (int PlayerActionValue) {
     int _currentPlotIndex = CurrentPlotIndex;
-    // if an action *has not* been done on the current index, for this loop
+    // if an action *has not* been done on the current index, during this loop
     if (!GameState.HasActionBeenDoneThisLoop[_currentPlotIndex]) {
-      int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
+      // update actions
       List<int> _currentPlotActions = GameState.PlantActions[_currentPlotIndex];
       _currentPlotActions.Add (PlayerActionValue);
       GameState.PlantActions[_currentPlotIndex] = _currentPlotActions;
+      // update score
+      int actionScore = PlayerActionValue * (GameState.LapsRunThroughLoop + 1);
       GameState.PlantScore[_currentPlotIndex] += actionScore;
       GameState.HasActionBeenDoneThisLoop[_currentPlotIndex] = true;
       Debug.Log ("player has chosen player action for " + actionScore);
       return actionScore;
-    // if an action *has* been done on the current index, for this loop
+    // if an action *has* been done on the current index, during this loop
     } else {
       Debug.Log ("action already done for this plot");
       return 0;
+    }
+  }
+
+  // the maximium score you can have for a plant, as of it growing into an adult
+  public static int MaximumPossibleScoreForGrownPlant {
+    get {
+      int _maxScore = 0;
+      for (int i = 0; i < GameState.MaxLoops; i++) {
+        _maxScore += (int)PlayerAction.Seed * (i + 1);
+      }
+      return _maxScore;
     }
   }
 
@@ -119,7 +132,7 @@ public class PlantingMechanics {
   public static int TotalScore {
     get {
       int _totalScore = 0;
-      foreach (var _score in GameState.PlantScore) {
+      foreach (int _score in GameState.PlantScore) {
         _totalScore += _score;
       }
       return _totalScore;
