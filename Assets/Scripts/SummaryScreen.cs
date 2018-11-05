@@ -15,6 +15,7 @@ public class SummaryScreen : MonoBehaviour {
         {
             Debug.Log("IN DICT");
             Debug.Log("Plant " + kvp.Key + " was grown " + kvp.Value + "times.");
+           //kvp.Value
         }
 
 	}
