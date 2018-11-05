@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     Text scoreTextTopRight;
-
+    Text toolUI;
 
     // Use this for initialization
     void Start ()
@@ -29,8 +29,7 @@ public class PlayerInput : MonoBehaviour
             Debug.Log("was " + pa.ToString());
             pa = CycleThroughActions("Left", pa);
             Debug.Log("now " + pa.ToString());
-            GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
-            Text toolUI = gameController.GetComponentInChildren<Text>();
+            toolUI = GameObject.FindWithTag("HeadCharacterUI").GetComponent<Text>();
             toolUI.text = pa.ToString();
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -38,8 +37,7 @@ public class PlayerInput : MonoBehaviour
             Debug.Log("was " + pa.ToString());
             pa = CycleThroughActions("Right", pa);
             Debug.Log("now " + pa.ToString());
-            GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
-            Text toolUI = gameController.GetComponentInChildren<Text>();
+            toolUI = GameObject.FindWithTag("HeadCharacterUI").GetComponent<Text>();
             toolUI.text = pa.ToString();
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
