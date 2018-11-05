@@ -10,6 +10,10 @@ public class ScrollScript : MonoBehaviour {
     public GameObject babyPlantPrefab;
     public int ScrollSpeed;// = 15;
 
+    public GameObject waterActionGlyph;
+    public GameObject seedActionGlyph;
+    public GameObject fertActionGlyph;
+
     public GameObject[] PlantList;
 
     void Start ()
@@ -79,6 +83,31 @@ public class ScrollScript : MonoBehaviour {
     public int doPlayerActionOnCurrentPlot (int PlayerActionValue) {
         PlotData plotData = CurrentPlot.GetComponentInChildren(typeof(PlotData)) as PlotData;
         int BackendPlotIndex = plotData.BackendPlotIndex;
+
+        //Do a check to see if we can take an action, then put the appropriate glyph on the sign
+        if (!GameState.HasActionBeenDoneThisLoop[BackendPlotIndex])
+        {
+            GameObject go;
+            switch (PlayerActionValue)
+            {
+                case 20:
+                    go = Instantiate(seedActionGlyph, CurrentPlot.transform.GetChild(1));
+                    go.transform.rotation = Quaternion.identity;
+                    go.transform.position += new Vector3(1, 14, 0);
+                    break;
+                case 10:
+                    go = Instantiate(waterActionGlyph, CurrentPlot.transform.GetChild(1));
+                    go.transform.rotation = Quaternion.identity;
+                    go.transform.position += new Vector3(1, 14, 0);
+                    break;
+                case 5:
+                    go = Instantiate(fertActionGlyph, CurrentPlot.transform.GetChild(1));
+                    go.transform.rotation = Quaternion.identity;
+                    go.transform.position += new Vector3(1, 14, 0);
+                    break; 
+            }
+            
+        }
         return PlantingMechanics.doPlayerActionOnIndex(PlayerActionValue, BackendPlotIndex);
     }
 
