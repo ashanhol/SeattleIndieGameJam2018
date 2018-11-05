@@ -29,7 +29,8 @@ public class PlayerInput : MonoBehaviour
             Debug.Log("was " + pa.ToString());
             pa = CycleThroughActions("Left", pa);
             Debug.Log("now " + pa.ToString());
-            Text toolUI = GameObject.Find("HeadCharacterUI").GetComponentInChildren<Text>();
+            GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
+            Text toolUI = gameController.GetComponentInChildren<Text>();
             toolUI.text = pa.ToString();
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -37,7 +38,8 @@ public class PlayerInput : MonoBehaviour
             Debug.Log("was " + pa.ToString());
             pa = CycleThroughActions("Right", pa);
             Debug.Log("now " + pa.ToString());
-            Text toolUI = GameObject.Find("HeadCharacterUI").GetComponentInChildren<Text>();
+            GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
+            Text toolUI = gameController.GetComponentInChildren<Text>();
             toolUI.text = pa.ToString();
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
