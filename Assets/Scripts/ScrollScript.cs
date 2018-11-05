@@ -93,17 +93,17 @@ public class ScrollScript : MonoBehaviour {
                 case 20:
                     go = Instantiate(seedActionGlyph, CurrentPlot.transform.GetChild(1));
                     go.transform.rotation = Quaternion.identity;
-                    go.transform.position += new Vector3(1, 14, 0);
+                    go.transform.position += new Vector3(1, 14, -2);
                     break;
                 case 10:
                     go = Instantiate(waterActionGlyph, CurrentPlot.transform.GetChild(1));
                     go.transform.rotation = Quaternion.identity;
-                    go.transform.position += new Vector3(1, 14, 0);
+                    go.transform.position += new Vector3(1, 14, -2);
                     break;
                 case 5:
                     go = Instantiate(fertActionGlyph, CurrentPlot.transform.GetChild(1));
                     go.transform.rotation = Quaternion.identity;
-                    go.transform.position += new Vector3(1, 14, 0);
+                    go.transform.position += new Vector3(1, 14, -2);
                     break; 
             }
             

@@ -50,7 +50,7 @@ public class PlayerInput : MonoBehaviour
                 Pause();
             }
         }
-        else if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
+        else if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
         {
             GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
             ScrollScript scrollScript = gameController.GetComponent<ScrollScript> ();
